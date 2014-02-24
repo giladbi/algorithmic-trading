@@ -1,0 +1,30 @@
+> Design a representation
+- Real valued chromosomes.
+> Define the genotype space
+- Stock price (Open, High, Low, Close, Adj Close)
+- Volume of stock traded
+- NASDAQ values - Open, High, Low, Close, Adj Close
+> Design a way of mapping a genotype to a phenotype
+- Percentage change of a metric between previous two days mapped to real valued
+  chromosome.
+> Design a way of evaluating an individual
+- Start with a simple model and move to more complex model.
+- Percentage change of any of the 3 non-stock price related metrics has positive
+  change and the percentage of 3 stock price related metrics has positive change
+  results in a positive change of at least 0.5% of the stock price for the next trading day. 
+  (Same metrics apply for negative changes)
+> Design suitable mutation operator(s)
+- Take average with uniform noise between [-1, 1]
+> Design suitable recombination operator(s)
+- Mean of two parents (local recombination - different metrics recombine among
+  themselves)
+> Decide how to select individuals to be parents
+- Fitness proportionate
+> Decide how to select individuals for the next generation (how to manage the
+population)
+- Best 50% of individuals. (Might change in the future based on the diversity
+  acheived)
+> Decide how to start: initialization method
+- Initialize population with the given data.
+> Decide how to stop: termination criterion
+- Error rate is less than 1e-8. 
