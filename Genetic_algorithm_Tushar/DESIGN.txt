@@ -9,7 +9,9 @@
   chromosome.
 > Design a way of evaluating an individual
 - Start with a simple model and move to more complex model.
-- Percentage change of any of the 3 non-stock price related metrics has positive
+Assumption: Positive volume change is considered a positive metric and helps
+adding bias towards the evolved solution.
+- Percentage change of any of the 2 non-stock(Volume) price related metrics has positive
   change and the percentage of 3 stock price related metrics has positive change
   results in a positive change of at least 0.5% of the stock price for the next trading day. 
   (Same metrics apply for negative changes)
