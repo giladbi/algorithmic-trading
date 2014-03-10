@@ -4,7 +4,7 @@
 import random
 import data_scrape
 from genetic_node import Genetic_Node as Node
-import Genetic_Tree as GT #Don't use in this file
+import genetic_tree as GT #Don't use in this file
 
 decision = ['left', 'right'] #Used for generating random trees
 
