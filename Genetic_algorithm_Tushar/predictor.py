@@ -23,10 +23,10 @@ class Chromosome:
 
 
 class Population:
-    def __init__(self):
+    def __init__(self, n = 20):
         # read the CSV file and initialize the initial population
         self.generation = 0
-        self.population = initialize_population()
+        self.population = initialize_population(n)
         pass
 
     def filter_data(self):
