@@ -95,12 +95,12 @@ dataset = []
 for i in xrange(1, len(apple_stock_prices)):
 
     model = FitnessDataObject()
-    open_diff = 100 * (apple_stock_prices[i].open_ - apple_stock_prices[i-1].open_) /  apple_stock_prices[i].open_
-    high_diff = 100 *(apple_stock_prices[i].high_ - apple_stock_prices[i-1].high_) /  apple_stock_prices[i].high_
-    low_diff = 100 *(apple_stock_prices[i].low_ - apple_stock_prices[i-1].low_) /  apple_stock_prices[i].low_
-    close_diff = 100 *(apple_stock_prices[i].close_ - apple_stock_prices[i-1].close_) /  apple_stock_prices[i].close_
-    volume_diff = 100 *(apple_stock_prices[i].volume_ - apple_stock_prices[i-1].volume_) /  apple_stock_prices[i].volume_
-    adjclose_diff = 100 *(apple_stock_prices[i].adjclose_ - apple_stock_prices[i-1].adjclose_) /  apple_stock_prices[i].adjclose_
+    open_diff = 100 * (apple_stock_prices[i].open_ - apple_stock_prices[i-1].open_) /  apple_stock_prices[i - 1].open_
+    high_diff = 100 *(apple_stock_prices[i].high_ - apple_stock_prices[i-1].high_) /  apple_stock_prices[i - 1].high_
+    low_diff = 100 *(apple_stock_prices[i].low_ - apple_stock_prices[i-1].low_) /  apple_stock_prices[i - 1].low_
+    close_diff = 100 *(apple_stock_prices[i].close_ - apple_stock_prices[i-1].close_) /  apple_stock_prices[i - 1].close_
+    volume_diff = 100 *(apple_stock_prices[i].volume_ - apple_stock_prices[i-1].volume_) /  apple_stock_prices[i - 1].volume_
+    adjclose_diff = 100 *(apple_stock_prices[i].adjclose_ - apple_stock_prices[i-1].adjclose_) /  apple_stock_prices[i - 1].adjclose_
     dates_ = apple_stock_prices[i].date_
 
     model.add_signal("delta_open", open_diff)
@@ -109,14 +109,14 @@ for i in xrange(1, len(apple_stock_prices)):
     model.add_signal("delta_close", close_diff)
     model.add_signal("delta_volume", volume_diff)
     model.add_signal("delta_adjclose", adjclose_diff)
+    model.add_signal("date", dates_)
 
-    open_diff = 100 * (nasdaq_stock_prices[i].open_ - nasdaq_stock_prices[i-1].open_) /  nasdaq_stock_prices[i].open_
-    print open_diff
-    high_diff = 100 *(nasdaq_stock_prices[i].high_ - nasdaq_stock_prices[i-1].high_) /  nasdaq_stock_prices[i].high_
-    low_diff = 100 *(nasdaq_stock_prices[i].low_ - nasdaq_stock_prices[i-1].low_) /  nasdaq_stock_prices[i].low_
-    close_diff = 100 *(nasdaq_stock_prices[i].close_ - nasdaq_stock_prices[i-1].close_) /  nasdaq_stock_prices[i].close_
-    volume_diff = 100 *(nasdaq_stock_prices[i].volume_ - nasdaq_stock_prices[i-1].volume_) /  nasdaq_stock_prices[i].volume_
-    adjclose_diff = 100 *(nasdaq_stock_prices[i].adjclose_ - nasdaq_stock_prices[i-1].adjclose_) /  nasdaq_stock_prices[i].adjclose_
+    open_diff = 100 * (nasdaq_stock_prices[i].open_ - nasdaq_stock_prices[i-1].open_) /  nasdaq_stock_prices[i - 1].open_
+    high_diff = 100 *(nasdaq_stock_prices[i].high_ - nasdaq_stock_prices[i-1].high_) /  nasdaq_stock_prices[i - 1].high_
+    low_diff = 100 *(nasdaq_stock_prices[i].low_ - nasdaq_stock_prices[i-1].low_) /  nasdaq_stock_prices[i - 1].low_
+    close_diff = 100 *(nasdaq_stock_prices[i].close_ - nasdaq_stock_prices[i-1].close_) /  nasdaq_stock_prices[i - 1].close_
+    volume_diff = 100 *(nasdaq_stock_prices[i].volume_ - nasdaq_stock_prices[i-1].volume_) /  nasdaq_stock_prices[i - 1].volume_
+    adjclose_diff = 100 *(nasdaq_stock_prices[i].adjclose_ - nasdaq_stock_prices[i-1].adjclose_) /  nasdaq_stock_prices[i - 1].adjclose_
     dates_ = nasdaq_stock_prices[i].date_
 
 
@@ -127,20 +127,22 @@ for i in xrange(1, len(apple_stock_prices)):
     model.add_signal("delta_nasdaq_volume", volume_diff)
     model.add_signal("delta_nasdaq_adjclose", adjclose_diff)
 
-    dataset.append(model)
-
-
-print dataset[0].get('delta_nasdaq_open')
 
 
 
-#percent_diff = [(0,0,0,0,0,0)]
-#test_data = []
-for i in xrange(1,len(stock_prices)):
-    
-        
-    tup = [dates_,open_diff,high_diff,low_diff,close_diff,volume_diff,adjclose_diff]
-    test_data.append(tup)
-#
-#for i in test_data:
-#    print i
+signals_list = []
+
+apple_opens = map(lambda x: x.get('delta_open'), dataset)
+apple_vols = map(lambda x: x.get('delta_volume'), dataset)
+nasdaq_opens = map(lambda x: x.get('delta_nasdaq_open'), dataset)
+nasdaq_vols = map(lambda x: x.get('delta_nasdaq_volume'), dataset)
+
+
+def signal_range(value_list):
+    min_val = min(value_list)
+    max_val = max(value_list)
+    range_val = abs(max_val - min_val)
+    return (min_val, range_val)
+
+
+
