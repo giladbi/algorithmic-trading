@@ -1,16 +1,29 @@
 #Rahul Ramakrishnan
-#Custom module that operates
-#on genetic trees
+#Stochastic Optimization
+
 import random
 import data_scrape
-from genetic_node import Genetic_Node as Node
-import genetic_tree as GT #Don't use in this file
+from genetic_node_tree import Node 
+from genetic_node_tree import Tree
 
-decision = ['left', 'right'] #Used for generating random trees
+'''
+	Initialization Operators
+'''
+#Initializes a genetic tree with 
+#a certain number of nodes
+def initializeGeneticTree(number_of_nodes):	
+	GT = Tree()
+	decision = ['left', 'right']
+	for i in range(0,number_of_nodes):
+		createRandomNodes(GT.root, decision)
+	fillGeneticTree(GT.root)
+	
+	#return Tree object
+	return GT
 
 #Traverse the binary tree and adds a pair 
 #of left and right nodes in a random place
-def create_Random_Nodes(root):
+def createRandomNodes(root, decision):
         choice = random.choice(decision)
         if(choice == 'left' and root.left == None):
                 root.left = Node('l')
@@ -20,40 +33,14 @@ def create_Random_Nodes(root):
 		root.left = Node('l')
         else:
                 if(choice == 'left'):
-                        create_Random_Nodes(root.left)
+                        createRandomNodes(root.left, decision)
                 else: #choice = 'right'
-                        create_Random_Nodes(root.right)
-
-#Traverses the tree in-order
-#for viewing purposes
-def in_Order_Traversal(root):
-	if root == None:
-		return
-	in_Order_Traversal(root.left)
-	print root.value
-	in_Order_Traversal(root.right)
-
-
-#Returns the fitness value of a genetic tree
-def fitness_Value(root):
-	path = []
-	fitness = 0
-	fitness_Function(root, path)
-	for p in path:
-		print p	
-
-#Loads path with the in-order traversal	
-def fitness_Function(root, path):
-	if root == None:
-		return
-	fitness_Function(root.left, path)
-	path.append(root.value)
-	fitness_Function(root.right, path)
+                        createRandomNodes(root.right, decision)
 
 
 #Insert terminal and functional nodes into the
 #genetic tree. 
-def fill_Genetic_Tree(root):
+def fillGeneticTree(root):
 	#Load terminal list with terminal nodes
 	terminal = data_scrape.get_Terminal()
 	#Load functional list with functional nodes
@@ -101,11 +88,89 @@ def fill_Genetic_Tree(root):
 			stack.append(temp_node) #stack.push
 
 
+'''
+	Mutation & Recombination Operators
+'''
+
+def mutate(root):
+	pass
+	#Choose to swap terminal
+	#or functional nodes
+	node_type = random.choice(['t', 'f'])
+	if(node_type == 't'):
+		t_node_values = findRandomNodes(root,1)
+		v_1 = random.choice(t_node_values)
+		v_2 = random.choice(t_node_values)
+		node_1 = DFS(root, v_1)
+		node_2 = DFS(root, v_2)
+		swap(node_1, node_2)
+	else: #type == 'f'
+		f_node_values = findRandomNodes(root,2)
+		v_1 = random.choice(f_node_values)
+		v_2 = random.choice(f_node_values)
+		node_1 = DFS(root, v_1)
+		node_2 = DFS(root, v_2)
+		swap(node_1, node_2)				
+	#Find first random node
+	#Find second random node
+
+def findRandomNodes(root,a_t_f=0):	
+	nodes = []
+	loadPaths(root, nodes, a_t_f)	
+	return nodes
+
+def recombination(root_1, root_2):
+	pass
+
+
+
+'''
+	Fitness Operators
+'''
+#Returns the fitness value of a genetic tree
+def fitnessValue(root):
+	path = []	
+	fitness = 0
+	loadPaths(root, path)
+	for p in path:
+		print p	
+
+#Loads path with an in-order traversal	
+#all, terminal, or functional nodes
+def loadPaths(root, path=[], a_t_f=0):	
+	if root == None:
+		return
+	loadPaths(root.left, path)
+	if(a_t_f == 2): #Only append functional nodes
+		if(root.left != None && root.right != None):
+			path.append(root.value)
+	elif(a_t_f == 1): #Only append terminal Nodes
+		if(root.left == None && root.right == None):
+			path.append(root.value)
+	else: # a_t_f == 0, append all nodes
+		path.append(root.value)
+	loadPaths(root.right, path)
+
+
 #Depth first search
 def DFS(root, target_value):
-	if(root == None):
-		return 			
-	if root.value == target_value:
-		return root
-	return DFS(root.left, target_value) or DFS(root.right, target_value)
+        if(root == None):
+                return    
+        if root.value == target_value:
+                return root
+        return DFS(root.left, target_value) or DFS(root.right, target_value)
+
+'''
+	Tree Inspection & Testing Operators
+'''
+#Traverses the tree in-order
+#for viewing purposes
+def inOrderTraversal(root):
+	if root == None:
+		return
+	inOrderTraversal(root.left)
+	print root.value
+	inOrderTraversal(root.right)
+
+
 	

@@ -4,13 +4,15 @@
 
 import random
 
+
+#Could use yield here
 def get_Terminal():
-	terminal = [Open, High, Low, Volume, DOW, S&P]
+	terminal = ['Open', 'High', 'Low', 'Volume', 'DOW', 'S&P']
 	#Add 10 random coefficients into terminal list
 	#to be used when applying operators on signals
 	for i in range(0,10):
-		random_integer = random.randInt(-10, 10)
-		termain.append(random_integer * random.random())	
+		random_integer = random.randint(-5, 5)
+		terminal.append(random_integer * random.random())	
 
 	return terminal
 
