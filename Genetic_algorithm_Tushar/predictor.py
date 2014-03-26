@@ -1,53 +1,25 @@
-import csv
-import math
-import random
-import numpy
-
-def initialize_population():
-    # initialize population based on the data available
-    pass
+from data.read_stock import DataHandler
+from ga.individual import Individual
+from ga.population import Population
 
 
-class Chromosome:
-    
-    def mutate(self):
-        # mutation 
-        # This definition might change based on the type of mutation we wish to
-        # perform
-        pass
+dataHandler = DataHandler(['apple_data.csv', 'NASDAQ_data.csv'])
+data = dataHandler.get_signal_list()
+signal_ranges = dataHandler.signal_ranges()
 
-    def crossover(self, chromosome):
-        # performs crossover between two chromosomes
-        pass
+data_element = len(data[0])
 
 
+population = Population(100 , signal_ranges, data)
+initial_fitess_values  = map(population.fitness_function, population)  
 
-class Population:
-    def __init__(self, n = 20):
-        # read the CSV file and initialize the initial population
-        self.generation = 0
-        self.population = initialize_population(n)
-        pass
 
-    def filter_data(self):
-        # transform the data into values that will be useful for computing the
-        # trading information
-        pass
+number_generations = 100
 
-    def selection(self):
-        # Selection of the individuals going to the next generation
-        pass
+for i in xrange(number_generations):
+    population.crossover()
+    population.mutation()
+    print max(map(population.fitness_function, population))
 
-    def evolve(self):
-        # create the next generation 
-        # Perform crossover
-        # Perform mutation
-        # Perform selection
-        self.generation = self.generation + 1
-        pass
-
-    def select_parents(self):
-        # Choose parents to be mated from population
-        pass
 
 

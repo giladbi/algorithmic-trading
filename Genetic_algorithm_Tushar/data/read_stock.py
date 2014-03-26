@@ -126,15 +126,21 @@ class DataHandler:
 
         return dataset
 
-    def __init__(self):
-        file_class = [('apple_data.csv', AppleStockPrice), ('NASDAQ_data.csv', NasdaqPrice)]
+    def __init__(self, files):
+        file_class = [(files[0] , AppleStockPrice), (files[1] , NasdaqPrice)]
         self.dataset = self.get_dataset(file_class)
 
 
-    def signal_range(value_list):
-        min_val = min(value_list)
-        max_val = max(value_list)
-        return (min_val, max_val)
+    def signal_ranges(self):
+        signal_ranges = []
+        if self.dataset != None:
+            for signal in self.dataset[0].get_signals():
+                l = map(lambda x:x.get(signal), self.dataset)
+                min_max = (min(l), max(l))
+                signal_ranges.append(min_max)
+        else:
+            print "Dataset is None"
+        return signal_ranges
 
 
     def get_signal_list(self):
