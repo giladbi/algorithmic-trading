@@ -7,7 +7,8 @@ from genetic_node_tree import Node
 from genetic_node_tree import Tree
 
 '''
-	Initialization Operators
+	Initialization Functions
+	and Wrappers
 '''
 #Initializes a genetic tree with 
 #a certain number of nodes
@@ -89,68 +90,83 @@ def fillGeneticTree(root):
 
 
 '''
-	Mutation & Recombination Operators
+	Mutation & Recombination 
+	Functions and Wrappers 
 '''
 
 def mutate(root):
-	pass
 	#Choose to swap terminal
 	#or functional nodes
 	node_type = random.choice(['t', 'f'])
-	if(node_type == 't'):
+	if(node_type == 't'): #(terminal node)
 		t_node_values = findRandomNodes(root,1)
 		v_1 = random.choice(t_node_values)
+		#remove from pool
+		t_node_values.remove(v_1)
 		v_2 = random.choice(t_node_values)
+		#Retrieve node references
 		node_1 = DFS(root, v_1)
 		node_2 = DFS(root, v_2)
-		swap(node_1, node_2)
-	else: #type == 'f'
+		swap_values(node_1, node_2)
+	else: #type == 'f' (functional node)
 		f_node_values = findRandomNodes(root,2)
 		v_1 = random.choice(f_node_values)
+		#remove from pool
+		f_node_values.remove(v_1)
 		v_2 = random.choice(f_node_values)
+		#Retrieve node references
 		node_1 = DFS(root, v_1)
 		node_2 = DFS(root, v_2)
-		swap(node_1, node_2)				
-	#Find first random node
-	#Find second random node
+		swap_values(node_1, node_2)				
+
+def recombination(root_1, root_2):
+        #Find random functional node value in tree 1
+        f_1_node_values = findRandomNodes(root_1,2)
+        v_1 = random.choice(f_1_node_values)
+        #Find random functional node value in tree 2
+        f_2_node_values = findRandomNodes(root_2,2)
+        v_2 = random.choice(f_2_node_values)
+        #Retrieve node references               
+        n_1 = DFS(root_1, v_1)
+        n_2 = DFS(root_2, v_2)
+        #Swap subtrees
+        swap_values(n_1, n_2)
+        swap_nodes(n_1, n_2)
+
 
 def findRandomNodes(root,a_t_f=0):	
 	nodes = []
 	loadPaths(root, nodes, a_t_f)	
 	return nodes
 
-def recombination(root_1, root_2):
-	pass
+def swap_values(node_1, node_2):
+	temp_value = node_1.value
+	node_1.value = node_2.value
+	node_2.value = temp_value
 
-
-
-'''
-	Fitness Operators
-'''
-#Returns the fitness value of a genetic tree
-def fitnessValue(root):
-	path = []	
-	fitness = 0
-	loadPaths(root, path)
-	for p in path:
-		print p	
+def swap_nodes(node_1, node_2):
+	temp_left = node_1.left
+	temp_right = node_1.right
+	node_1.left = node_2.left
+	node_1.right = node_2.right
+	node_2.left = temp_left
+	node_2.right = temp_right
 
 #Loads path with an in-order traversal	
 #all, terminal, or functional nodes
 def loadPaths(root, path=[], a_t_f=0):	
 	if root == None:
 		return
-	loadPaths(root.left, path)
+	loadPaths(root.left, path, a_t_f)
 	if(a_t_f == 2): #Only append functional nodes
-		if(root.left != None && root.right != None):
+		if(root.left != None and root.right != None):
 			path.append(root.value)
 	elif(a_t_f == 1): #Only append terminal Nodes
-		if(root.left == None && root.right == None):
+		if(root.left == None and root.right == None):
 			path.append(root.value)
 	else: # a_t_f == 0, append all nodes
 		path.append(root.value)
-	loadPaths(root.right, path)
-
+	loadPaths(root.right, path, a_t_f)
 
 #Depth first search
 def DFS(root, target_value):
@@ -161,8 +177,59 @@ def DFS(root, target_value):
         return DFS(root.left, target_value) or DFS(root.right, target_value)
 
 '''
+	Fitness Functions & Wrappers
+'''
+#Returns the fitness value of a genetic tree
+def fitnessValue(root):
+        path = []    
+        fitness = 0 
+        loadPaths(root, path)
+        for p in path:
+                print p 
+
+
+
+
+
+'''
 	Tree Inspection & Testing Operators
 '''
+#Depth of a tree
+def depth(root):
+	if(root == None):
+		return 0
+	else:
+		return 1 + max(depth(root.left), depth(root.right))
+
+
+#Prints each level
+def printTree(root):
+	print "----- Depth of Tree: %d" %(depth(root))
+	print "\nPrinting Tree  -----  Level by Level: "
+	result = createLeveledTree(root)
+	for level_index, level in enumerate(result):
+		nodes = []
+		for node in level:
+			nodes.append(node.value)	
+		print str(level_index) + ":  " +  str(nodes)
+
+#Creates a list of levels of a tree
+def createLeveledTree(root):
+	result = []	
+	current = []
+	if(root != None):
+		current.append(root)
+	while (len(current) > 0):
+		result.append(current)
+		parents = current
+		current = []
+		for parent in parents:
+			if (parent.left != None):
+				current.append(parent.left)
+			if (parent.right != None):
+				current.append(parent.right)
+	return result
+
 #Traverses the tree in-order
 #for viewing purposes
 def inOrderTraversal(root):
@@ -173,4 +240,4 @@ def inOrderTraversal(root):
 	inOrderTraversal(root.right)
 
 
-	
+

@@ -1,8 +1,9 @@
 #Rahul Ramakrishnan
 #Stochastic Optimization
-#Genetic Node Class
-#Genetic Tree Class
 
+
+
+#Genetic Node Class
 class Node(object):
         #Constructor for Node object
         def __init__(self, value=None):
@@ -11,7 +12,7 @@ class Node(object):
                 self.right = None    
 
 
-
+#Genetic Tree Class
 class Tree(object):	
 	#Constructor
 	def __init__(self):
