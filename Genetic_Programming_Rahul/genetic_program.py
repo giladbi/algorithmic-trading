@@ -11,7 +11,7 @@ from genetic_node_tree import Tree
 	and Wrappers
 '''
 #Initializes a genetic tree with 
-#a certain number of nodes
+#the specified number of nodes
 def initializeGeneticTree(number_of_nodes):	
 	GT = Tree()
 	decision = ['left', 'right']
@@ -43,9 +43,9 @@ def createRandomNodes(root, decision):
 #genetic tree. 
 def fillGeneticTree(root):
 	#Load terminal list with terminal nodes
-	terminal = data_scrape.get_Terminal()
+	terminal = data_scrape.getTerminal()
 	#Load functional list with functional nodes
-	functional = data_scrape.get_Functional()	
+	functional = data_scrape.getFunctional()	
 	
 	#Keeps track of functional and terminal
 	#list positions
@@ -184,9 +184,36 @@ def fitnessValue(root):
         path = []    
         fitness = 0 
         loadPaths(root, path)
-        for p in path:
-                print p 
+        print path 	
+	#getAppleData
+	#getNasdaqData
+	#get length of dataset
+	#While not at end of apple_data and nasdaq_data (should be same length)
+		#Load into the tree
+		#createEquation
+			#Find predicted float value
+		#Find error between actual price of next day
+		#Sum the error
+		#loop through both data sets	
+	#return the average error
+	#store this fitness on the tree object
+		
 
+def createEquation(path):
+	pass
+
+#iterate through the population getting their fitness
+#and storing it into a list
+#fitness_values is the list 
+#in the same order as the population
+#that contains the fitness of the corresponding
+#tree
+def roulletteWheel(fitness_values):
+	pass
+#Sum the values
+#new list of percentages fitness/sum_fitness
+#inverse the this percentage 
+#Figure ^^^ out later
 
 
 
@@ -204,8 +231,7 @@ def depth(root):
 
 #Prints each level
 def printTree(root):
-	print "----- Depth of Tree: %d" %(depth(root))
-	print "\nPrinting Tree  -----  Level by Level: "
+	print "\n\n\n-----Tree Level by Level--- Depth of Tree: %d" %(depth(root))
 	result = createLeveledTree(root)
 	for level_index, level in enumerate(result):
 		nodes = []

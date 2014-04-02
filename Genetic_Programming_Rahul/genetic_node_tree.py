@@ -13,6 +13,7 @@ class Node(object):
 
 
 #Genetic Tree Class
+#Uses Genetic Node 
 class Tree(object):	
 	#Constructor
 	def __init__(self):
