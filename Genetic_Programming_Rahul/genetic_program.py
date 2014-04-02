@@ -1,5 +1,6 @@
 #Rahul Ramakrishnan
 #Stochastic Optimization
+#Genetic Program Module
 
 import random
 import data_scrape
@@ -10,17 +11,23 @@ from genetic_node_tree import Tree
 	Initialization Functions
 	and Wrappers
 '''
+#Initialize genetic tree population
+def initializePopulation(number_of_trees):
+	population = []
+	for i in xrange(0, number_of_trees):
+		tree = initializeGeneticTree(5)
+		population.append(tree)
+	return population
+
 #Initializes a genetic tree with 
 #the specified number of nodes
 def initializeGeneticTree(number_of_nodes):	
-	GT = Tree()
+	tree = Tree()
 	decision = ['left', 'right']
 	for i in range(0,number_of_nodes):
-		createRandomNodes(GT.root, decision)
-	fillGeneticTree(GT.root)
-	
-	#return Tree object
-	return GT
+		createRandomNodes(tree.root, decision)
+	fillGeneticTree(tree.root)
+	return tree 
 
 #Traverse the binary tree and adds a pair 
 #of left and right nodes in a random place
@@ -93,10 +100,15 @@ def fillGeneticTree(root):
 	Mutation & Recombination 
 	Functions and Wrappers 
 '''
+def performMutation(population):
+	m_probability = .8		
+	for tree in xrange(0, len(population)):
+		dice_roll = random.random()
+		if (dice_roll < .8):
+			mutate(population[tree].root)
 
 def mutate(root):
-	#Choose to swap terminal
-	#or functional nodes
+	#Choose to swap terminal or functional nodes
 	node_type = random.choice(['t', 'f'])
 	if(node_type == 't'): #(terminal node)
 		t_node_values = findRandomNodes(root,1)
@@ -107,19 +119,31 @@ def mutate(root):
 		#Retrieve node references
 		node_1 = DFS(root, v_1)
 		node_2 = DFS(root, v_2)
-		swap_values(node_1, node_2)
+		swapValues(node_1, node_2)
 	else: #type == 'f' (functional node)
 		f_node_values = findRandomNodes(root,2)
-		v_1 = random.choice(f_node_values)
-		#remove from pool
-		f_node_values.remove(v_1)
-		v_2 = random.choice(f_node_values)
-		#Retrieve node references
-		node_1 = DFS(root, v_1)
-		node_2 = DFS(root, v_2)
-		swap_values(node_1, node_2)				
+		#Safeguards against a one element f_node
+		if (len(f_node_values) > 1):
+			v_1 = random.choice(f_node_values)
+			#remove from pool
+			f_node_values.remove(v_1)
+			v_2 = random.choice(f_node_values)
 
-def recombination(root_1, root_2):
+			#Retrieve node references
+			node_1 = DFS(root, v_1)
+			node_2 = DFS(root, v_2)
+			swapValues(node_1, node_2)				
+
+def performCrossover(population):
+	c_probability = .8
+	for tree in xrange(0, len(population)):	
+		if (random.random() < c_probability):
+			one = random.choice(population)
+			two = random.choice(population)
+		 	if(one != two):
+				crossover(one.root, two.root)
+		
+def crossover(root_1, root_2):
         #Find random functional node value in tree 1
         f_1_node_values = findRandomNodes(root_1,2)
         v_1 = random.choice(f_1_node_values)
@@ -130,21 +154,21 @@ def recombination(root_1, root_2):
         n_1 = DFS(root_1, v_1)
         n_2 = DFS(root_2, v_2)
         #Swap subtrees
-        swap_values(n_1, n_2)
-        swap_nodes(n_1, n_2)
+        swapValues(n_1, n_2)
+        swapNodes(n_1, n_2)
 
 
-def findRandomNodes(root,a_t_f=0):	
+def findRandomNodes(root, a_t_f=0):	
 	nodes = []
 	loadPaths(root, nodes, a_t_f)	
 	return nodes
 
-def swap_values(node_1, node_2):
+def swapValues(node_1, node_2):
 	temp_value = node_1.value
 	node_1.value = node_2.value
 	node_2.value = temp_value
 
-def swap_nodes(node_1, node_2):
+def swapNodes(node_1, node_2):
 	temp_left = node_1.left
 	temp_right = node_1.right
 	node_1.left = node_2.left
@@ -184,12 +208,12 @@ def nodeReplace(path):
 	terminal = data_scrape.getTerminal()	
 	for t in terminal:
 		if t in path:
-			t_i = path.index(t)
+			t_i = path.index(t)		
 			if t[0] == 'a':
 				path[t_i] = "apple_data[i]['%s']" %(t)
 			else: #nasdaq
-				path[t_i] = "nasdaq_data[i]['%s']" %(t)
-
+				path[t_i] = "nasdaq_data[i]['%s']" %(t)	
+				
 
 #Calculate the fitness value of a single GP tree
 #and stores it in the tree object
@@ -205,9 +229,8 @@ def fitnessValue(root):
 		
 	for i in xrange(0, len(apple_data)-1):
 		nodeReplace(path)
-		equation = createEquation(path)
+		equation = createEquation(path)	
 		predicted_price = eval(equation)
-		print predicted_price
 		actual_price = apple_data[i+1]['apple_close']
 		error = abs(actual_price - predicted_price)
 		_sum_of_errors += error	
@@ -215,7 +238,7 @@ def fitnessValue(root):
 	total = float(len(apple_data)-1)	
 	fitness = _sum_of_errors/total
 	root.fitness = fitness	
-	print "fitness: %f" %(fitness)
+	print "\n\nGP Tree fitness: %f" %(fitness)
 		
 def createEquation(path):
 	path_str = ""
@@ -223,20 +246,42 @@ def createEquation(path):
 		path_str += str(node) + " "
 	return path_str
 
-#iterate through the population getting their fitness
-#and storing it into a list
-#fitness_values is the list 
-#in the same order as the population
-#that contains the fitness of the corresponding
-#tree
-def roulletteWheel(fitness_values):
-	pass
-#Sum the values
-#new list of percentages fitness/sum_fitness
-#inverse the this percentage 
-#Figure ^^^ out later
+def roulletteWheel(population):
+	total = len(population)
+	#Sort in ascending order by fitness(error)
+	sort_pop = sorted(population, lambda tree:tree.fitness, reverse = True)
+	#Sum ranks
+	_rank_sum = 0
+	for i in xrange(0, total):
+		_rank_sum += i
+	#Assign probability
+	roulletteWheel = []
+	for i in xrange(0, total):
+		#probability = rank/sum_of_ranks
+		prob = (i+1)/float(_rank_sum)
+		prob *= 100  #convert from decimal to a number
+		for j in xrange(0, int(prob)):
+			roulletteWheel.append(sort_pop[i])
+	return roulletteWheel	
 
+def parentSelection(roulletteWheel):
+	random.shuffle(roulletteWheel)
+	new_pop = []
+	for i in xrange(0, 100):
+		chosen = random.choice(roulletteWheel)
+		new_pop.append(chosen)	
+	return new_pop
+							
+def averageFitness(population):
+	_sum = []
+	for tree in population:
+		_sum += tree.fitness
+	avg_fitness = _sum / float(len(population))
+	return avg_fitness
 
+def generateFitnesses(population):
+	for tree in xrange(0, len(population)):
+                fitnessValue(population[tree].root)
 
 
 '''
@@ -252,7 +297,7 @@ def depth(root):
 
 #Prints each level
 def printTree(root):
-	print "\n\n\n-----Tree Level by Level--- Depth of Tree: %d" %(depth(root))
+	print "\n\n-----Tree Level by Level--- Depth of Tree: %d" %(depth(root))
 	result = createLeveledTree(root)
 	for level_index, level in enumerate(result):
 		nodes = []
@@ -287,4 +332,26 @@ def inOrderTraversal(root):
 	inOrderTraversal(root.right)
 
 
+#Testing Mutation
+def testMutation():
+	depth = 4
+        apple_tree_1 = GP.initializeGeneticTree(depth)
+        print "Before Mutation"
+        printTree(apple_tree_1.root)
+        mutate(apple_tree_1.root)
+        print "After Mutation"
+        GP.printTree(apple_tree_1.root)
 
+#Testing Crossover
+def testCrossover():
+	depth = 4
+        apple_tree_1 = GP.initializeGeneticTree(depth)
+        apple_tree_2 = GP.initializeGeneticTree(depth)
+        print "Tree 1"
+        GP.printTree(apple_tree_1.root) 
+        print "Tree 2"
+        GP.printTree(apple_tree_2.root)
+        GP.crossover(apple_tree_1.root, apple_tree_2.root)      
+        print "After Crossover"
+        GP.printTree(apple_tree_1.root)
+        GP.printTree(apple_tree_2.root)

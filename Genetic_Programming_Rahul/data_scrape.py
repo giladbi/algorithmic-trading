@@ -24,11 +24,9 @@ def getTerminal():
 	return terminals
 
 def getFunctional():
-	#Need to add more operators
-	#like cube root 
 	functionals = ['+' , '/', '*', '-']
+	#Check crossovers
 	#Will add math.exp, math.log, math.ln, math.e
-	#We will ensure that the tree is a non-linear function
 	random.shuffle(functionals)
 	return functionals
 

@@ -4,38 +4,19 @@
 
 import genetic_program as GP
 
-'''
-	Tests
-'''
-#Testing Mutation
-def testMutation(depth):
-	apple_tree_1 = GP.initializeGeneticTree(depth)
-	print "Before Mutation"
-	GP.printTree(apple_tree_1.root)
-	GP.mutate(apple_tree_1.root)
-	print "After Mutation"
-	GP.printTree(apple_tree_1.root)
-
-#Testing Crossover
-def testCrossover(depth):
-	apple_tree_1 = GP.initializeGeneticTree(depth)
-	apple_tree_2 = GP.initializeGeneticTree(depth)
-	print "Tree 1"
-	GP.printTree(apple_tree_1.root)	
-	print "Tree 2"
-	GP.printTree(apple_tree_2.root)
-	GP.crossover(apple_tree_1.root, apple_tree_2.root)	
-	print "After Crossover"
-	GP.printTree(apple_tree_1.root)
-	GP.printTree(apple_tree_2.root)
+population = GP.initializePopulation(100)
 
 
-#testMutation(3)
-#testCrossover(4)
+for generation in xrange(0, 10):		
+	for tree in xrange(0, len(population)):		
+		print "\ntree: %d" %(tree)
+		GP.performMutation(population)
+		GP.performCrossover(population)
+	GP.generateFitnesses(population)
+	roullette = GP.roulletteWheel(population)
+	population = GP.parentSelection(roullette)		
+	GP.averageFitness(population)	
 
-apple_tree_1 = GP.initializeGeneticTree(3)
-#apple_tree_2 = GP.initializeGeneticTree(3)
-GP.fitnessValue(apple_tree_1.root)
-#GP.fitnessValue(apple_tree_2.root)
 
 
+print "All Done"
