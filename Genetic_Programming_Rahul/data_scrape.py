@@ -26,7 +26,9 @@ def getTerminal():
 def getFunctional():
 	#Need to add more operators
 	#like cube root 
-	functionals = ['+' , '/', '*', '-', '^', 'exp', 'log', 'ln']
+	functionals = ['+' , '/', '*', '-']
+	#Will add math.exp, math.log, math.ln, math.e
+	#We will ensure that the tree is a non-linear function
 	random.shuffle(functionals)
 	return functionals
 
@@ -42,7 +44,9 @@ def getNasdaqData():
 	for line in nasdaq:
 		info = line.split(',')		
 		date = info[0]	
-		year = date[:4]; month = date[5:7]; day = date[8:10];
+		year = int(date[:4]) 
+		month = int(date[5:7]) 
+		day = int(date[8:10])
 	        current = datetime.date(year, month, day)	
 		#Financial Placeholder for current data
 		finance_dict = {}
@@ -51,8 +55,9 @@ def getNasdaqData():
 			#Store financial data
 			finance_dict["nasdaq_open"] = float(info[1])
 			finance_dict["nasdaq_low"] = float(info[2])
-			finance_dict["nasdaq_close"] = float(info[3])
-			finance_dict["nasdaq_volume"] = float(info[4])
+			finance_dict["nasdaq_high"] = float(info[3])
+			finance_dict["nasdaq_close"] = float(info[4])
+			finance_dict["nasdaq_volume"] = float(info[5])
 			#Storing financial data in the list
 			nasdaq_data.append(finance_dict)
 	
@@ -68,14 +73,17 @@ def getAppleData():
 	for line in apple:
 		info = line.split(',')
 		date = info[0]
-		year = date[:4]; month=date[5:7]; day=date[8:10];
+		year = int(date[:4]) 
+		month = int(date[5:7]) 
+		day = int(date[8:10])
 		current = datetime.date(year, month, day)	
 		finance_dict = {}
 		if current >= begin_date and current <= end_date:
 			finance_dict["apple_open"] = float(info[1])
 			finance_dict["apple_low"] = float(info[2])
-			finance_dict["apple_close"] = float(info[3])
-			finance_dict["apple_volume"] = float(info[4])
+			finance_dict["apple_high"] = float(info[3])
+			finance_dict["apple_close"] = float(info[4])
+			finance_dict["apple_volume"] = float(info[5])
 			apple_data.append(finance_dict)
 
 	return apple_data		

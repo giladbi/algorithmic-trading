@@ -179,28 +179,49 @@ def DFS(root, target_value):
 '''
 	Fitness Functions & Wrappers
 '''
-#Returns the fitness value of a genetic tree
+#Replaces path with data
+def nodeReplace(path):
+	terminal = data_scrape.getTerminal()	
+	for t in terminal:
+		if t in path:
+			t_i = path.index(t)
+			if t[0] == 'a':
+				path[t_i] = "apple_data[i]['%s']" %(t)
+			else: #nasdaq
+				path[t_i] = "nasdaq_data[i]['%s']" %(t)
+
+
+#Calculate the fitness value of a single GP tree
+#and stores it in the tree object
 def fitnessValue(root):
         path = []    
         fitness = 0 
+	_sum_of_errors = 0
         loadPaths(root, path)
-        print path 	
-	#getAppleData
-	#getNasdaqData
-	#get length of dataset
-	#While not at end of apple_data and nasdaq_data (should be same length)
-		#Load into the tree
-		#createEquation
-			#Find predicted float value
-		#Find error between actual price of next day
-		#Sum the error
-		#loop through both data sets	
-	#return the average error
-	#store this fitness on the tree object
-		
 
+	#Load market data	
+	apple_data = data_scrape.getAppleData()	
+	nasdaq_data = data_scrape.getNasdaqData()
+		
+	for i in xrange(0, len(apple_data)-1):
+		nodeReplace(path)
+		equation = createEquation(path)
+		predicted_price = eval(equation)
+		print predicted_price
+		actual_price = apple_data[i+1]['apple_close']
+		error = abs(actual_price - predicted_price)
+		_sum_of_errors += error	
+
+	total = float(len(apple_data)-1)	
+	fitness = _sum_of_errors/total
+	root.fitness = fitness	
+	print "fitness: %f" %(fitness)
+		
 def createEquation(path):
-	pass
+	path_str = ""
+	for node in path:
+		path_str += str(node) + " "
+	return path_str
 
 #iterate through the population getting their fitness
 #and storing it into a list
