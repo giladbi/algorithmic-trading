@@ -222,21 +222,19 @@ def nodeReplace(path):
 
 #Calculate the fitness value of a single GP tree
 #and stores it in the tree object
-def fitnessValue(root):
+def fitnessValue(tree):
         path = []    
         fitness = 0 
 	_sum_of_errors = 0
-        loadPaths(root, path)
+        loadPaths(tree.root, path)
 
 	#Load market data	
 	apple_data = data_scrape.getAppleData()	
 	nasdaq_data = data_scrape.getNasdaqData()
 		
-	for i in xrange(0, len(apple_data)-1):
-		print "i: %d" %(i)
+	for i in xrange(0, len(apple_data)-1):	
 		nodeReplace(path)
 		equation = createEquation(path)	
-		print "equation: %s" %(equation)
 		predicted_price = eval(equation)
 		actual_price = apple_data[i+1]['apple_close']
 		error = abs(actual_price - predicted_price)
@@ -244,8 +242,7 @@ def fitnessValue(root):
 
 	total = float(len(apple_data)-1)	
 	fitness = _sum_of_errors/total
-	root.fitness = fitness	
-	print "\n\nGP Tree fitness: %f" %(fitness)
+	tree.fitness = fitness		
 		
 def createEquation(path):
 	path_str = ""
@@ -256,7 +253,7 @@ def createEquation(path):
 def roulletteWheel(population):
 	total = len(population)
 	#Sort in ascending order by fitness(error)
-	sort_pop = sorted(population, lambda tree:tree.fitness, reverse = True)
+	sort_pop = sorted(population, key=lambda tree: tree.fitness, reverse = True)
 	#Sum ranks
 	_rank_sum = 0
 	for i in xrange(0, total):
@@ -280,15 +277,16 @@ def parentSelection(roulletteWheel):
 	return new_pop
 							
 def averageFitness(population):
-	_sum = []
+	_sum = 0
 	for tree in population:
+		print "tree.fitness: %f" %(tree.fitness)
 		_sum += tree.fitness
 	avg_fitness = _sum / float(len(population))
 	return avg_fitness
 
 def generateFitnesses(population):
 	for tree in xrange(0, len(population)):
-                fitnessValue(population[tree].root)
+                fitnessValue(population[tree])
 
 
 '''

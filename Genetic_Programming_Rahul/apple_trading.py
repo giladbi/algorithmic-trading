@@ -11,10 +11,11 @@ for generation in xrange(0, 10):
 	print "Generation: %d" %(generation)
 
 	for tree in xrange(0, len(population)):			
-		print "tree: %d" %(tree)
 		GP.performMutation(population)
 		GP.performCrossover(population)
 	GP.generateFitnesses(population)
+	for tree in population:
+		print "tree.fitness: %s" %(tree.fitness)
 	roullette = GP.roulletteWheel(population)
 	population = GP.parentSelection(roullette)		
 	GP.averageFitness(population)	

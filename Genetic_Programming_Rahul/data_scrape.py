@@ -18,7 +18,11 @@ def getTerminal():
 
 	for i in range(0,10):
 		random_integer = random.randint(-5, 5)
-		terminals.append(random_integer * random.random())	
+		number = random_integer * random.random()
+		#Protect against divide by zero
+		if(number == 0):
+			number = .0001
+		terminals.append(number)	
 
 	random.shuffle(terminals)	
 	return terminals
