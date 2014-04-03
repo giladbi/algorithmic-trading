@@ -209,11 +209,15 @@ def nodeReplace(path):
 	for t in terminal:
 		if (type(t) == type('str')):
 			if t in path:	
-				t_i = path.index(t)		
+				#t_i = path.index(t)			
+				#indices = filter(for i,x in enumerate(path) if x == t, path)
+				indices = [i for i,x in enumerate(path) if x == t]	
 				if t[0] == 'a':
-					path[t_i] = "apple_data[i]['%s']" %(t)
+					for index in indices:
+						path[index] = "apple_data[i]['%s']" %(t)
 				else: #nasdaq
-					path[t_i] = "nasdaq_data[i]['%s']" %(t)	
+					for index in indices:
+						path[index] = "nasdaq_data[i]['%s']" %(t)	
 				
 
 #Calculate the fitness value of a single GP tree
