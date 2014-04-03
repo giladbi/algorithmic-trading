@@ -1,6 +1,6 @@
 #Rahul Ramakrishnan
 #Stochastic Optimization
-
+#Node & Tree Class
 
 
 #Genetic Node Class
@@ -13,6 +13,7 @@ class Node(object):
 
 
 #Genetic Tree Class
+#Uses Genetic Node 
 class Tree(object):	
 	#Constructor
 	def __init__(self):
@@ -21,4 +22,4 @@ class Tree(object):
 		self.root = Node('root') 
 		self.size = 1
 		self.decision = ['left', 'right']
-		self.fitness = None
+		self.fitness = None 
