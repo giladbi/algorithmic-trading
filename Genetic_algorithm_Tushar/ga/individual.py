@@ -3,11 +3,17 @@
 # import representation related functions
 
 import operator
+import random
+
 from random import randint as ri
 from random import uniform as ru
+
+random.seed(1234)
+
 class Individual:
     def __init__(self, number_of_signals, bit_length = 16):
         self.rep = ""
+        self.sig_size = bit_length
         #self.signal_range = signal_ranges(datasets)
         for i in xrange(number_of_signals):
             random_val =  bin(ri(0, 2 ** bit_length))[2:]
@@ -28,7 +34,7 @@ class Individual:
         repr_size = len(self.rep)
         n = repr_size / num_signals
 
-        individual_signals = [self.rep[i:i+n] for i in xrange(0, len(self.rep), n)] 
+        individual_signals = [ self.rep[i:i+n] for i in xrange(0, len(self.rep), n) ] 
         individual_vals = []
 
         for i in range(num_signals):
@@ -44,6 +50,7 @@ class Individual:
     
     def mutate(self, mutate_probability):
         l = list(self.rep)
+        
         for i in xrange(len(self.rep)):
             r = ru(0,1)
             if r < mutate_probability:
@@ -51,7 +58,6 @@ class Individual:
                     l[i] = '0'
                 elif l[i] == '0':
                     l[i] = '1'
-                
 
         self.rep = "".join(l)
 
@@ -59,17 +65,35 @@ class Individual:
     def crossover_2way(self, other_parent, crossover_probability):
         l1 = len(self.rep)
         l2 = len(other_parent.rep)
+        expected_length = 0
+        #print "before crossover"
+        #print self.rep
+        #print other_parent.rep
         if l1 == l2:
-            p1 = self.rep
-            p2 = other_parent.rep
-            point = ri(0,l1 - 1) 
-            tmp1 = p1[point:]
-            tmp2 = p2[point:]
-            p1 = p1[:point] + tmp2
-            p2 = p2[:point] + tmp1
+            expected_length = l1
+            tmp_p1 = ""
+            tmp_p2 = ""
+            for i in xrange(0, l1 , self.sig_size):
+                p1 = self.rep[i: (i+self.sig_size) ]
+                p2 = other_parent.rep[i: (i+self.sig_size) ]
+                point = ri(0, self.sig_size  - 1) 
+                #print point
+                tmp1 = p1[point:]
+                tmp2 = p2[point:]
+                p1 = p1[:point] + tmp2
+                p2 = p2[:point] + tmp1
+                tmp_p1 = tmp_p1 + p1
+                tmp_p2 = tmp_p2 + p2
+            #print "After crossover"
+            #print tmp_p1
+            #print tmp_p2
             # used parent replaces children survivor selection
-            self.change_individual(p1)
-            other_parent.change_individual(p2)
+            if expected_length != 0:
+                self.change_individual(tmp_p1.zfill(expected_length))
+                other_parent.change_individual(tmp_p2.zfill(expected_length))
+            #print "After crossover"
+            #print self.rep 
+            #print other_parent.rep 
         else:
             print "length of both parents must be equal"
 

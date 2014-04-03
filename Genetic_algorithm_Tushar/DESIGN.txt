@@ -1,5 +1,5 @@
 > Design a representation
-- Real valued chromosomes.
+- Binary string chromosomes.
 > Define the genotype space
 - Stock price (Open, High, Low, Close, Adj Close)
 - Volume of stock traded
