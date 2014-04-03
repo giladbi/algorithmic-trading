@@ -3,6 +3,7 @@
 #Genetic Program Module
 
 import random
+import config
 import data_scrape
 from genetic_node_tree import Node 
 from genetic_node_tree import Tree
@@ -264,6 +265,7 @@ def roulletteWheel(population):
 		#probability = rank/sum_of_ranks
 		prob = (i+1)/float(_rank_sum)
 		prob *= 100  #convert from decimal to a number
+		print "prob: %f" %(prob)
 		for j in xrange(0, int(prob)):
 			roulletteWheel.append(sort_pop[i])
 	return roulletteWheel	
@@ -271,17 +273,17 @@ def roulletteWheel(population):
 def parentSelection(roulletteWheel):
 	random.shuffle(roulletteWheel)
 	new_pop = []
-	for i in xrange(0, 100):
+	for i in xrange(0, config.population_size):
 		chosen = random.choice(roulletteWheel)
 		new_pop.append(chosen)	
 	return new_pop
 							
 def averageFitness(population):
 	_sum = 0
-	for tree in population:
-		print "tree.fitness: %f" %(tree.fitness)
+	for tree in population:	
 		_sum += tree.fitness
 	avg_fitness = _sum / float(len(population))
+	print "Average Fitness: %f" %(avg_fitness)	
 	return avg_fitness
 
 def generateFitnesses(population):
