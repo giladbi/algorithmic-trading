@@ -8,8 +8,10 @@ population = GP.initializePopulation(100)
 
 
 for generation in xrange(0, 10):		
-	for tree in xrange(0, len(population)):		
-		print "\ntree: %d" %(tree)
+	print "Generation: %d" %(generation)
+
+	for tree in xrange(0, len(population)):			
+		print "tree: %d" %(tree)
 		GP.performMutation(population)
 		GP.performCrossover(population)
 	GP.generateFitnesses(population)

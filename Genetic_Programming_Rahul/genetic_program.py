@@ -207,12 +207,13 @@ def DFS(root, target_value):
 def nodeReplace(path):
 	terminal = data_scrape.getTerminal()	
 	for t in terminal:
-		if t in path:
-			t_i = path.index(t)		
-			if t[0] == 'a':
-				path[t_i] = "apple_data[i]['%s']" %(t)
-			else: #nasdaq
-				path[t_i] = "nasdaq_data[i]['%s']" %(t)	
+		if (type(t) == type('str')):
+			if t in path:	
+				t_i = path.index(t)		
+				if t[0] == 'a':
+					path[t_i] = "apple_data[i]['%s']" %(t)
+				else: #nasdaq
+					path[t_i] = "nasdaq_data[i]['%s']" %(t)	
 				
 
 #Calculate the fitness value of a single GP tree
@@ -228,8 +229,10 @@ def fitnessValue(root):
 	nasdaq_data = data_scrape.getNasdaqData()
 		
 	for i in xrange(0, len(apple_data)-1):
+		print "i: %d" %(i)
 		nodeReplace(path)
 		equation = createEquation(path)	
+		print "equation: %s" %(equation)
 		predicted_price = eval(equation)
 		actual_price = apple_data[i+1]['apple_close']
 		error = abs(actual_price - predicted_price)
