@@ -22,6 +22,10 @@ def read_csv_file(filename, objtype):
     return obj_list
 
 
+def percent_difference(value, orig):
+    return (value - orig) / float(orig)
+
+
 class AppleStockPrice:
     """ Class to hold the stock price"""
     def __init__(self,listing):
@@ -99,29 +103,39 @@ class DataHandler:
             adjclose_diff = 100 *(apple_stock_prices[i].adjclose_ - apple_stock_prices[i-1].adjclose_) /  apple_stock_prices[i - 1].adjclose_
             dates_ = apple_stock_prices[i].date_
 
-            model.add_signal("delta_open", open_diff)
-            model.add_signal("delta_high", high_diff)
-            model.add_signal("delta_low", low_diff)
-            model.add_signal("delta_close", close_diff)
-            model.add_signal("delta_volume", volume_diff)
-            model.add_signal("delta_adjclose", adjclose_diff)
+            #model.add_signal("delta_open", open_diff)
+            #model.add_signal("delta_high", high_diff)
+            #model.add_signal("delta_low", low_diff)
+            #model.add_signal("delta_close", close_diff)
+            #model.add_signal("delta_volume", volume_diff)
+            #model.add_signal("delta_adjclose", adjclose_diff)
             # model.add_signal("date", dates_)
 
             open_diff = 100 * (nasdaq_stock_prices[i].open_ - nasdaq_stock_prices[i-1].open_) /  nasdaq_stock_prices[i - 1].open_
             high_diff = 100 *(nasdaq_stock_prices[i].high_ - nasdaq_stock_prices[i-1].high_) /  nasdaq_stock_prices[i - 1].high_
             low_diff = 100 *(nasdaq_stock_prices[i].low_ - nasdaq_stock_prices[i-1].low_) /  nasdaq_stock_prices[i - 1].low_
             close_diff = 100 *(nasdaq_stock_prices[i].close_ - nasdaq_stock_prices[i-1].close_) /  nasdaq_stock_prices[i - 1].close_
-            volume_diff = 100 *(nasdaq_stock_prices[i].volume_ - nasdaq_stock_prices[i-1].volume_) /  nasdaq_stock_prices[i - 1].volume_
+            #print nasdaq_stock_prices[i].volume_
+            #print nasdaq_stock_prices[i-1].volume_
+            #print  (nasdaq_stock_prices[i].volume_ -  nasdaq_stock_prices[i-1].volume_) / float(nasdaq_stock_prices[i -1].volume_)
+
+
+
+            #volume_diff = 100 *(nasdaq_stock_prices[i].volume_ - nasdaq_stock_prices[i-1].volume_) /  nasdaq_stock_prices[i - 1].volume_
+            volume_diff = percent_difference(nasdaq_stock_prices[i].volume_, nasdaq_stock_prices[i - 1].volume_) 
+            #print volume_diff
             adjclose_diff = 100 *(nasdaq_stock_prices[i].adjclose_ - nasdaq_stock_prices[i-1].adjclose_) /  nasdaq_stock_prices[i - 1].adjclose_
             dates_ = nasdaq_stock_prices[i].date_
 
 
-            model.add_signal("delta_nasdaq_open", open_diff)
-            model.add_signal("delta_nasdaq_high", high_diff)
-            model.add_signal("delta_nasdaq_low", low_diff)
-            model.add_signal("delta_nasdaq_close", close_diff)
+            #model.add_signal("delta_nasdaq_open", open_diff)
+            #model.add_signal("delta_nasdaq_high", high_diff)
+            #model.add_signal("delta_nasdaq_low", low_diff)
+            #model.add_signal("delta_nasdaq_close", close_diff)
+            #print "Volume diff"
+            #print volume_diff
             model.add_signal("delta_nasdaq_volume", volume_diff)
-            model.add_signal("delta_nasdaq_adjclose", adjclose_diff)
+            #model.add_signal("delta_nasdaq_adjclose", adjclose_diff)
             dataset.append(model)
 
         return dataset
