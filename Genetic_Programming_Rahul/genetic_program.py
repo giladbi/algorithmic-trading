@@ -252,26 +252,28 @@ def createEquation(path):
 	return path_str
 
 def roulletteWheel(population):
+	#Sort in descending order by fitness(error) highest error --> lowest error
+	sorted_pop = sorted(population, key=lambda tree: tree.fitness, reverse=True)
+	#Sum Ranks
 	total = len(population)
-	#Sort in ascending order by fitness(error)
-	sort_pop = sorted(population, key=lambda tree: tree.fitness, reverse = True)
-	#Sum ranks
-	_rank_sum = 0
-	for i in xrange(0, total):
-		_rank_sum += i
+	_rank_sum = reduce(lambda x,y: x+y, xrange(0, total))
 	#Assign probability
+	probabilities = map(lambda i: (i+1)/float(_rank_sum), xrange(0, total))
+	#Generate intervals
 	roulletteWheel = []
-	for i in xrange(0, total):
-		#probability = rank/sum_of_ranks
-		prob = (i+1)/float(_rank_sum)
-		prob *= 100  #convert from decimal to a number
-		print "prob: %f" %(prob)
-		for j in xrange(0, int(prob)):
-			roulletteWheel.append(sort_pop[i])
+	for i,p in enumerate(probabilities):
+		if i = 0:
+			roulletteWheel[0] = probabilities[0]
+		else:
+			roulletteWheel[i] = roulletteWheel[i-1] + probabilities[i] 
+	
+		
 	return roulletteWheel	
 
-def parentSelection(roulletteWheel):
-	random.shuffle(roulletteWheel)
+def parentSelection(roulletteWheel):	
+	for i in xrange(0, config.population_size):
+		pass	
+		#FILL IN THIS SHIT RIGHT HERE
 	new_pop = []
 	for i in xrange(0, config.population_size):
 		chosen = random.choice(roulletteWheel)

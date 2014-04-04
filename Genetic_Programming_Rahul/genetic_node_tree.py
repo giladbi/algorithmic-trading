@@ -23,3 +23,4 @@ class Tree(object):
 		self.size = 1
 		self.decision = ['left', 'right']
 		self.fitness = None 
+
