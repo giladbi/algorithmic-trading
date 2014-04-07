@@ -46,7 +46,7 @@ for i in xrange(number_generations):
     population.sus_sampler(fitness_vals)
     mean_val = np.mean(fitness_vals)
     max_val = max(fitness_vals)
-    print mean_val, max_val
+    print str(mean_val) + "," +  str(max_val)
     mean_list.append(mean_val)
     max_list.append(max_val)
 

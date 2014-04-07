@@ -50,14 +50,15 @@ class Individual:
     
     def mutate(self, mutate_probability):
         l = list(self.rep)
-        
-        for i in xrange(len(self.rep)):
+
+        for i in xrange(self.sig_size):
             r = ru(0,1)
             if r < mutate_probability:
-                if l[i] == '1':
-                    l[i] = '0'
-                elif l[i] == '0':
-                    l[i] = '1'
+                for j in xrange(i,self.sig_size, self.sig_size):
+                    if l[j] == '1':
+                        l[j] = '0'
+                    elif l[j] == '0':
+                        l[j] = '1'
 
         self.rep = "".join(l)
 
