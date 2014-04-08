@@ -13,7 +13,7 @@ def percent_diff(approx , correct):
 
 
 class Population(object):
-    def __init__(self, size, signal_ranges, data, pm = 0.1, pc = 0.7):
+    def __init__(self, size, signal_ranges, data, pm = 1/16.0 , pc = 0.7):
         individual_size = len(signal_ranges)
         self.population = []
         self.signal_ranges = signal_ranges
@@ -57,12 +57,9 @@ class Population(object):
                 #print "element[item]"
                 #print element[item]
                 #print "abs percent diff"
-                #print abs(percent_diff(transformed_individual[item], element[item]))
-                if abs(percent_diff(transformed_individual[item], element[item])) < 5 :
+                #print percent_diff(transformed_individual[item], element[item])
+                if abs(percent_diff(transformed_individual[item], element[item])) < 0.5 :
                     count = count + 1
-                    #if count > threshold:
-                    #    positive = positive + 1
-                    #    count = 0
                     #print positive
         #return float(positive) / self.data_size
         #return float(positive) 
