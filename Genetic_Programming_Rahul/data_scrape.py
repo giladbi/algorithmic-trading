@@ -1,7 +1,12 @@
 #Rahul Ramakrishnan
 #Stochastic Optimization
-#Scrapes, structures, 
-#and returns data 
+
+'''
+	Description:	
+	1. Scrapes
+	2. Structures
+	3. Returns Data
+'''
 
 import datetime
 import random
@@ -15,7 +20,6 @@ def getTerminal():
 
 	#Add 10 random coefficients into terminal list
 	#to be used when applying operators on signals
-
 	for i in range(0,10):
 		random_integer = random.randint(-5, 5)
 		number = random_integer * random.random()
@@ -28,9 +32,8 @@ def getTerminal():
 	return terminals
 
 def getFunctional():
-	functionals = ['+' , '/', '*', '-']
-	#Check crossovers
-	#Will add math.exp, math.log, math.ln, math.e
+	functionals = ['+' , '/', '*', '-']	
+	#Will add math.exp, math.log, math.ln, math.e	
 	random.shuffle(functionals)
 	return functionals
 
@@ -61,8 +64,7 @@ def getNasdaqData():
 			finance_dict["nasdaq_close"] = float(info[4])
 			finance_dict["nasdaq_volume"] = float(info[5])
 			#Storing financial data in the list
-			nasdaq_data.append(finance_dict)
-	
+			nasdaq_data.append(finance_dict)	
 	return nasdaq_data	
 
 
@@ -87,5 +89,4 @@ def getAppleData():
 			finance_dict["apple_close"] = float(info[4])
 			finance_dict["apple_volume"] = float(info[5])
 			apple_data.append(finance_dict)
-
 	return apple_data		
