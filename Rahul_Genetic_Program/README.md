@@ -7,13 +7,13 @@ Evolutionary Computing - Genetic Program
 ###Professor: Jason Lohn
 ###Author: Rahul Ramakrishnan
 
-** Description **
+**Description:**
 Predicts apple stock price using a genetic program. 
 It is trained using 2010-2013 apple and nasdaq data for
 now, however, more data will be added soon.
 
 
-** Quick Start **
+**Quick Start**
 
 *Step 1*
 Install python 2.7 interpretter
