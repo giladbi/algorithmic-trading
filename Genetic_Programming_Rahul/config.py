@@ -1,6 +1,6 @@
 #Rahul Ramakrishnan
 #Configuration File
 
-population_size = 4 
-generations = 4 
+population_size = 20 
+generations = 100 
 

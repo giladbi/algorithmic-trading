@@ -1,5 +1,6 @@
 #Rahul Ramakrishnan
 #Stochastic Optimization
+#Data Scrape
 
 '''
 	Description:	
@@ -13,15 +14,17 @@ import random
 
 #Could use a generator, yield
 def getTerminal():
+	'''
 	terminals = ['apple_open', 'apple_high', 'apple_low', 
 		     'apple_close', 'apple_volume', 'nasdaq_open', 
 		     'nasdaq_high', 'nasdaq_low', 'nasdaq_close', 
                      'nasdaq_volume']
-
+	'''
+	terminals = ['apple_open', 'apple_high', 'apple_low', 'apple_volume', 'apple_close']
 	#Add 10 random coefficients into terminal list
 	#to be used when applying operators on signals
 	for i in range(0,10):
-		random_integer = random.randint(-5, 5)
+		random_integer = random.randint(-1000, 1000)
 		number = random_integer * random.random()
 		#Protect against divide by zero
 		if(number == 0):
@@ -70,7 +73,7 @@ def getNasdaqData():
 
 def getAppleData():
 	#Same thing for nasdaq data as apple
-	apple = open('./data/nasdaq.txt', 'r')
+	apple = open('./data/test_data/test_apple_stock.txt', 'r')
 	begin_date = datetime.date(2011, 01, 01)
 	end_date = datetime.date(2013, 12, 31)
 	apple_data = []
