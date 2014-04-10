@@ -3,9 +3,9 @@ Predicting Apple Stock
 Evolutionary Computing - Genetic Program
 ========================================
 
-#Class: Stochastic Optimization
-#Professor: Jason Lohn
-#Author: Rahul Ramakrishnan
+###Class: Stochastic Optimization
+###Professor: Jason Lohn
+###Author: Rahul Ramakrishnan
 
 ** Description **
 Predicts apple stock price using a genetic program. 
@@ -18,7 +18,7 @@ now, however, more data will be added soon.
 *Step 1*
 Install python 2.7 interpretter
 
-'''linux
+'''
 sudo apt-get install python2.7
 '''
 
@@ -36,13 +36,11 @@ Ensure that Rahul_Genetic_Program/ contains
 
 *Step 3*
 
-'''linux
+'''
 $ python predict.py
 '''
 
 *Step 4*
 Populations will be outputted to the screen
-
-
 
 
