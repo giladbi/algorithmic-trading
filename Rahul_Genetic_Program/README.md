@@ -27,6 +27,8 @@ Ensure that Rahul_Genetic_Program/ contains
 - a. predict.py
 - b. apple/ (package containing modules)
 	- config.py
+	- tree.py
+	- initialize.py
 	- scrape.py
 	- inspect.py
 	- recombination.py
