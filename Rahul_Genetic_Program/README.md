@@ -18,27 +18,27 @@ now, however, more data will be added soon.
 *Step 1*
 Install python 2.7 interpretter
 
-'''
+```
 sudo apt-get install python2.7
-'''
+```
 
 *Step 2*
 Ensure that Rahul_Genetic_Program/ contains
-	a. predict.py
-	b. apple/ (package containing modules)
-		config.py
-		scrape.py
-		inspect.py
-		recombination.py
-		selection.py
-		fitness.py
-	c. data/ (contains data)
+- a. predict.py
+- b. apple/ (package containing modules)
+- config.py
+- scrape.py
+- inspect.py
+- recombination.py
+- selection.py
+- fitness.py
+- c. data/ (contains data)
 
 *Step 3*
 
-'''
+```
 $ python predict.py
-'''
+```
 
 *Step 4*
 Populations will be outputted to the screen
