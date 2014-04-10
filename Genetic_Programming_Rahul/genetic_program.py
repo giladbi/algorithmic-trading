@@ -107,7 +107,7 @@ def fillGeneticTree(root):
 	Functions and Wrappers 
 '''
 def performMutation(population):
-	m_probability = .5		
+	m_probability = 1.0
 	for tree in xrange(0, len(population)):
 		dice_roll = random()
 		if (dice_roll < m_probability):
@@ -143,6 +143,7 @@ def mutate(root):
 def performCrossover(population):
 	c_probability = .5 
 	size = len(population)
+	print "Inside performCrossover, size: %d " %(size)
 	for i in xrange(0, size, 2):
 		if(random() < c_probability):
 			crossover(population[i].root, population[i+1].root)
@@ -152,16 +153,22 @@ def performCrossover(population):
 def crossover(root_1, root_2):
         #Find random functional node value in tree 1
         f_1_node_values = findRandomNodes(root_1,2)
+	#print "f_1_node_values: " 
+	#print f_1_node_values
         v_1 = choice(f_1_node_values)
+	#print "v_1: %s" %(v_1)
         #Find random functional node value in tree 2
         f_2_node_values = findRandomNodes(root_2,2)
+	#print "f_2_node_values: " 
+	#print f_2_node_values
         v_2 = choice(f_2_node_values)
+	#print "v_2: %s" %(v_2)
         #Retrieve node references               
         n_1 = DFS(root_1, v_1)
         n_2 = DFS(root_2, v_2)
         #Swap subtrees
         swapValues(n_1, n_2)
-	#print "Crossover: Swapping %s with %s" %(n_1.value, n_2.value)
+	print "Crossover: Swapping %s with %s" %(n_1.value, n_2.value)
         swapNodes(n_1, n_2)
 
 def findRandomNodes(root, a_t_f=0):	
@@ -314,7 +321,8 @@ def roulletteParentSelection(roulletteWheel, population):
 def tournamentParentSelection(population):
 	temp_population = deepcopy(population)	
 	population_size = len(population)
-	k = population_size/5
+	#k = population_size/5
+	k = population_size
 	new_tree = None
 	population[:] = []
 	for p in xrange(0, population_size):

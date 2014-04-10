@@ -18,6 +18,9 @@
 	10. Separate the Genetic_Program.py into separate modules in a package __init__.py
 	11. Switch to list object with average fitness methods that gets passed around
 	12. Avoid having a list
+	13. Include parameter control
+	14. Include colors in the output
+	15. Find out a way to choose functional nodes randomly (by finding the size first)
 '''
 
 import genetic_program as GP
@@ -31,7 +34,7 @@ size = len(population)
 for generation in xrange(0, config.generations):		
 	print "----------Generation: %d----------" %(generation)
 	for tree in xrange(0, size):			
-		GP.performMutation(population)
+		#GP.performMutation(population)
 		GP.performCrossover(population)
 	GP.generateFitnesses(population)
 	TP.printEquationPopulation(population)	

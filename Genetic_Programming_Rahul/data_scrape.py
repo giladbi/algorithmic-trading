@@ -20,6 +20,7 @@ def getTerminal():
 		     'nasdaq_high', 'nasdaq_low', 'nasdaq_close', 
                      'nasdaq_volume']
 	'''
+	#For test data
 	terminals = ['apple_open', 'apple_high', 'apple_low', 'apple_volume', 'apple_close']
 	#Add 10 random coefficients into terminal list
 	#to be used when applying operators on signals
