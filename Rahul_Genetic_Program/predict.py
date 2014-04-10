@@ -25,8 +25,9 @@
 from apple import config
 from apple import initialize
 from apple import inspect
-from apple import fitness
+from apple import recombination
 from apple import selection
+from apple import fitness
 
 #Initialize objects and literals
 population = initialize.initializePopulation(config.population_size)
@@ -35,12 +36,12 @@ size = len(population)
 for generation in xrange(0, config.generations):		
 	print "----------Generation: %d----------" %(generation)
 	for tree in xrange(0, size):			
-		#mutation_crossover.performMutation(population)
-		mutation_crossover.performCrossover(population)
+		recombination.performMutation(population)
+		recombination.performCrossover(population)
 	fitness.generateFitnesses(population)
 	inspect.printEquationPopulation(population)	
 	selection.tournamentParentSelection(population)
-	inspect_population.calculateAverageFitness(population)	
+	inspect.calculateAverageFitness(population)	
 
 print "============= After genetic program ===================="
 inspect.printEquationPopulation(population)
