@@ -1,12 +1,10 @@
 #Rahul Ramakrishnan
-#Stochastic Optimization
-#Data Scrape
+#module: scrape
 
 '''
-	Description:	
-	1. Scrapes
-	2. Structures
-	3. Returns Data
+	1. Scrapes stock data
+	2. Structures data
+	3. Returns data
 '''
 
 import datetime
@@ -43,7 +41,7 @@ def getFunctional():
 
 def getNasdaqData():
 	#Open file reading stream
-	nasdaq = open('./data/nasdaq.txt', 'r')
+	nasdaq = open('../data/nasdaq.txt', 'r')
 	#Training dates
 	begin_date = datetime.date(2011, 01, 01)	
 	end_date = datetime.date(2013, 12, 31)
@@ -74,7 +72,7 @@ def getNasdaqData():
 
 def getAppleData():
 	#Same thing for nasdaq data as apple
-	apple = open('./data/test_data/test_apple_stock.txt', 'r')
+	apple = open('../data/test_data/test_apple_stock.txt', 'r')
 	begin_date = datetime.date(2011, 01, 01)
 	end_date = datetime.date(2013, 12, 31)
 	apple_data = []

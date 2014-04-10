@@ -1,5 +1,5 @@
 #Rahul Ramakrishnan
-#Configuration File
+#module: config
 
 population_size = 20 
 generations = 100 

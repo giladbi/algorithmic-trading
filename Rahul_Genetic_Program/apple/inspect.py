@@ -2,26 +2,29 @@
 #Stochastic Optimization
 #Test Program Module
 
-
-import genetic_program as GP
-from operator import itemgetter
-
-
 '''
         Tree Inspection & Testing Operators
 '''
+
+from apple import recombination
+from apple import fitness
+from apple import initialize
+from operator import itemgetter
+
+#Prints Trees Level by Level
 def printTreePopulation(population):
         for tree in population:
                 printTree(tree)
 
+#Prints Trees by their Equation (in-order)
 def printEquationPopulation(population):
 	equation_dict = {}
 	print "Size of population in print Equation Population: %d" %(len(population))
         for i,tree in enumerate(population):
                 path = []
-                GP.loadPaths(tree.root, path)
-                equation = GP.createEquation(path)
-                fitness = GP.fitnessValue(tree)
+                recombination.loadPaths(tree.root, path)
+                equation = fitness.createEquation(path)
+                fitness = fitness.fitnessValue(tree)
 		equation_dict[equation] = fitness 
 	#Sort based on value of dictionary
 	sorted_equation = sorted(equation_dict.iteritems(), key=itemgetter(1))
@@ -78,7 +81,7 @@ def inOrderTraversal(root):
 #Testing Mutation
 def testMutation():
         depth = 4
-        apple_tree_1 = GP.initializeGeneticTree(depth)
+        apple_tree_1 = initialize.initializeGeneticTree(depth)
         print "Before Mutation"
         printTree(apple_tree_1.root)
         mutate(apple_tree_1.root)
@@ -88,8 +91,8 @@ def testMutation():
 #Testing Crossover
 def testCrossover():
         depth = 4
-        apple_tree_1 = GP.initializeGeneticTree(depth)
-        apple_tree_2 = GP.initializeGeneticTree(depth)
+        apple_tree_1 = initialize.initializeGeneticTree(depth)
+        apple_tree_2 = initialize.initializeGeneticTree(depth)
         print "Tree 1"
         printTree(apple_tree_1.root)
         print "Tree 2"

@@ -1,7 +1,9 @@
 #Rahul Ramakrishnan
-#Stochastic Optimization
-#Node & Tree Class
+#module: tree
 
+'''
+	Node and Tree Class
+'''
 
 #Genetic Node Class
 class Node(object):

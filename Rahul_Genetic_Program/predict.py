@@ -1,6 +1,5 @@
 #Rahul Ramakrishnan
-#Stochastic Optimization
-#Algorithmic Trading Script
+#Main Script
 '''
         ------------------ To Do: -------------------
 	0. Print out equation, fitness, best ----DONE
@@ -23,24 +22,32 @@
 	15. Find out a way to choose functional nodes randomly (by finding the size first)
 '''
 
-import genetic_program as GP
-import config
-import test_program as TP
+from apple import config
+from apple import initialize
+from apple import inspect
+from apple import fitness
+from apple import selection
 
 #Initialize objects and literals
-population = GP.initializePopulation(config.population_size)
+population = initialize.initializePopulation(config.population_size)
 size = len(population)
 
 for generation in xrange(0, config.generations):		
 	print "----------Generation: %d----------" %(generation)
 	for tree in xrange(0, size):			
-		#GP.performMutation(population)
-		GP.performCrossover(population)
-	GP.generateFitnesses(population)
-	TP.printEquationPopulation(population)	
-	GP.tournamentParentSelection(population)
-	GP.calculateAverageFitness(population)	
+		#mutation_crossover.performMutation(population)
+		mutation_crossover.performCrossover(population)
+	fitness.generateFitnesses(population)
+	inspect.printEquationPopulation(population)	
+	selection.tournamentParentSelection(population)
+	inspect_population.calculateAverageFitness(population)	
 
 print "============= After genetic program ===================="
-TP.printEquationPopulation(population)
+inspect.printEquationPopulation(population)
+
+
+
+
+
+
 
