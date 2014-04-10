@@ -26,12 +26,12 @@ sudo apt-get install python2.7
 Ensure that Rahul_Genetic_Program/ contains
 - a. predict.py
 - b. apple/ (package containing modules)
-- config.py
-- scrape.py
-- inspect.py
-- recombination.py
-- selection.py
-- fitness.py
+	- config.py
+	- scrape.py
+	- inspect.py
+	- recombination.py
+	- selection.py
+	- fitness.py
 - c. data/ (contains data)
 
 *Step 3*
