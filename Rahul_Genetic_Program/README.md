@@ -1,10 +1,11 @@
 Predicting Apple Stock
+======================
 Evolutionary Computing - Genetic Program
 ========================================
 
-##Class: Stochastic Optimization
-##Professor: Jason Lohn
-##Author: Rahul Ramakrishnan
+#Class: Stochastic Optimization
+#Professor: Jason Lohn
+#Author: Rahul Ramakrishnan
 
 ** Description **
 Predicts apple stock price using a genetic program. 
