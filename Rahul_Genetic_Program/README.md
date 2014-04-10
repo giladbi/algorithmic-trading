@@ -15,14 +15,14 @@ now, however, more data will be added soon.
 
 **Quick Start**
 
-*Step 1*
+*Step 1:*
 Install python 2.7 interpretter
 
 ```
 sudo apt-get install python2.7
 ```
 
-*Step 2*
+*Step 2:*
 Ensure that Rahul_Genetic_Program/ contains
 - a. predict.py
 - b. apple/ (package containing modules)
@@ -34,13 +34,12 @@ Ensure that Rahul_Genetic_Program/ contains
 	- fitness.py
 - c. data/ (contains data)
 
-*Step 3*
-
+*Step 3:*
 ```
 $ python predict.py
 ```
 
-*Step 4*
+*Step 4:*
 Populations will be outputted to the screen
 
 
