@@ -7,12 +7,13 @@
 '''
 from random import choice
 from random import random
+from copy import deepcopy
 
 '''
 	Mutation
 '''
 def performMutation(population):
-	m_probability = 1.0
+	m_probability = 1.0 
 	for tree in xrange(0, len(population)):
 		dice_roll = random()
 		if (dice_roll < m_probability):
@@ -50,36 +51,38 @@ def mutate(root):
 	Crossover
 '''
 def performCrossover(population):
-	c_probability = .5 
+	c_probability = .2 
 	size = len(population)
-	print "Inside performCrossover, size: %d " %(size)
+	#print "Inside performCrossover, size: %d " %(size)
 	for i in xrange(0, size, 2):
 		if(random() < c_probability):
-			crossover(population[i].root, population[i+1].root)
-		#	if(population[i].root != population[i+1].root):
-		#		crossover(population[i].root, population[i+1].root)		
+			crossover(population[i].root, population[i+1].root)		
 
 def crossover(root_1, root_2):
+
         #Find random functional node value in tree 1
-        f_1_node_values = findRandomNodes(root_1,2)
-        v_1 = choice(f_1_node_values)
-        f_2_node_values = findRandomNodes(root_2,2)
-        v_2 = choice(f_2_node_values)
+        f_1_nodes = findRandomNodes(root_1,3)
+	#f_1_node_values = map(lambda x: x.value, f_1_nodes)
+        node_1 = choice(f_1_nodes)
+        f_2_nodes = findRandomNodes(root_2,3)
+	#f_2_node_values = map(lambda x: x.value, f_2_nodes)
+        node_2 = choice(f_2_nodes)
         #Retrieve node references               
-        n_1 = DFS(root_1, v_1)
-        n_2 = DFS(root_2, v_2)
+        #n_1 = DFS(root_1, v_1)
+        #n_2 = DFS(root_2, v_2)
+
         #Swap subtrees
-        swapValues(n_1, n_2)
-	print "Crossover: Swapping %s with %s" %(n_1.value, n_2.value)
-        swapNodes(n_1, n_2)
+        swapValues(node_1, node_2)
+	#print "Crossover: Swapping %s with %s" %(n_1.value, n_2.value)
+        swapNodes(node_1, node_2)
 
 
 '''
 	Wrappers
 '''
-def findRandomNodes(root, a_t_f=0):	
+def findRandomNodes(root, t_or_f=0):	
 	nodes = []
-	loadPaths(root, nodes, a_t_f)	
+	loadPaths(root, nodes, t_or_f)
 	return nodes
 
 def swapValues(node_1, node_2):
@@ -97,19 +100,22 @@ def swapNodes(node_1, node_2):
 
 #Loads path with an in-order traversal	
 #all, terminal, or functional nodes
-def loadPaths(root, path=[], a_t_f=0):	
+def loadPaths(root, path=[], t_or_f=0):	
 	if root == None:
 		return
-	loadPaths(root.left, path, a_t_f)
-	if(a_t_f == 2): #Only append functional nodes
+	loadPaths(root.left, path, t_or_f)
+	if(t_or_f == 2): #Only append functional nodes
 		if(root.left != None and root.right != None):
-			path.append(root.value)
-	elif(a_t_f == 1): #Only append terminal Nodes
+			path.append(root.value)	
+	elif(t_or_f == 1): #Only append terminal Nodes
 		if(root.left == None and root.right == None):
 			path.append(root.value)
-	else: # a_t_f == 0, append all nodes
+	elif(t_or_f == 3): #Only append functional node REFERENCES
+		if(root.left != None and root.right != None):
+			path.append(root)
+	else: # t_or_f == 0, append all nodes
 		path.append(root.value)
-	loadPaths(root.right, path, a_t_f)
+	loadPaths(root.right, path, t_or_f)
 
 #Depth first search
 def DFS(root, target_value):

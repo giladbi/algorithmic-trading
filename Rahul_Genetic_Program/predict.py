@@ -2,24 +2,22 @@
 #Main Script
 '''
         ------------------ To Do: -------------------
-	0. Print out equation, fitness, best ----DONE
-        1. Add more diversity preserving
-                a. Roullette Wheel --------------DONE
-                b. Tournament Selection ---------DONE
+	0. Print out equation, fitness, best -----------------------------------------------DONE
+        1. Add more diversity preserving (Test each one)
+                a. Roullette Wheel ---------------------------------------------------------DONE
+                b. Tournament Selection ----------------------------------------------------DONE
+		c. SUS 
         2. Graph the evolution of the different methods
-        3. Add more terminal nodes (data from nasdaq)
-        4. Add more functional nodes
+        3. Add more terminal nodes (data from s&p500)
+        4. Add more functional nodes (^, cosine, sine, tangent, log, ln, exp (e^) )
         5. Convert for loops to map & reduce
         6. Use filter when you can 
-        7. Convert map and reduce to HADOOP Fast Code
-        8. Become more memory efficient  
-	9. Create training data -----------------DONE
-	10. Separate the Genetic_Program.py into separate modules in a package __init__.py
-	11. Switch to list object with average fitness methods that gets passed around
-	12. Avoid having a list
-	13. Include parameter control
-	14. Include colors in the output
-	15. Find out a way to choose functional nodes randomly (by finding the size first)
+        7. Become more memory efficient where possible 
+	8. Create training data ------------------------------------------------------------DONE
+	9. Separate modules in a package __init__.py ---------------------------------------DONE
+	10. Include parameter control
+	11. Include colors in the output
+	12. Find out a way to choose functional nodes randomly -----------------------------DONE
 '''
 
 from apple import config
@@ -36,12 +34,12 @@ size = len(population)
 for generation in xrange(0, config.generations):		
 	print "----------Generation: %d----------" %(generation)
 	for tree in xrange(0, size):			
-		recombination.performMutation(population)
+		#recombination.performMutation(population)
 		recombination.performCrossover(population)
 	fitness.generateFitnesses(population)
-	inspect.printEquationPopulation(population)	
+	#inspect.printEquationPopulation(population)	
 	selection.tournamentParentSelection(population)
-	inspect.calculateAverageFitness(population)	
+	fitness.calculateAverageFitness(population)	
 
 print "============= After genetic program ===================="
 inspect.printEquationPopulation(population)

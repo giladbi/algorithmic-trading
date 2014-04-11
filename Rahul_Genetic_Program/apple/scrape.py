@@ -1,6 +1,5 @@
 #Rahul Ramakrishnan
 #module: scrape
-
 '''
 	1. Scrapes stock data
 	2. Structures data
@@ -41,7 +40,7 @@ def getFunctional():
 
 def getNasdaqData():
 	#Open file reading stream
-	nasdaq = open('../data/nasdaq.txt', 'r')
+	nasdaq = open('/Users/rahulramakrishnan/Projects/algorithmic-trading/Rahul_Genetic_Program/data/nasdaq.txt', 'r')
 	#Training dates
 	begin_date = datetime.date(2011, 01, 01)	
 	end_date = datetime.date(2013, 12, 31)
@@ -72,7 +71,7 @@ def getNasdaqData():
 
 def getAppleData():
 	#Same thing for nasdaq data as apple
-	apple = open('../data/test_data/test_apple_stock.txt', 'r')
+	apple = open('/Users/rahulramakrishnan/Projects/algorithmic-trading/Rahul_Genetic_Program/data/test_data/test_apple_stock.txt', 'r')
 	begin_date = datetime.date(2011, 01, 01)
 	end_date = datetime.date(2013, 12, 31)
 	apple_data = []
@@ -92,3 +91,4 @@ def getAppleData():
 			finance_dict["apple_volume"] = float(info[5])
 			apple_data.append(finance_dict)
 	return apple_data		
+

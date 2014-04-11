@@ -1,14 +1,16 @@
 #Rahul Ramakrishnan
-#Stochastic Optimization
-#Test Program Module
+#module: inspect
 
 '''
-        Tree Inspection & Testing Operators
+        Tree Inspection 
+		& 
+	Testing Operators
 '''
 
-from apple import recombination
-from apple import fitness
-from apple import initialize
+import recombination
+import fitness
+import initialize
+
 from operator import itemgetter
 
 #Prints Trees Level by Level
@@ -24,8 +26,8 @@ def printEquationPopulation(population):
                 path = []
                 recombination.loadPaths(tree.root, path)
                 equation = fitness.createEquation(path)
-                fitness = fitness.fitnessValue(tree)
-		equation_dict[equation] = fitness 
+                error = fitness.fitnessValue(tree)
+		equation_dict[equation] = error
 	#Sort based on value of dictionary
 	sorted_equation = sorted(equation_dict.iteritems(), key=itemgetter(1))
 	for i, e_and_f in enumerate(sorted_equation):
@@ -50,6 +52,13 @@ def printTree(tree):
                         nodes.append(node.value)
                 print str(level_index) + ":  " +  str(nodes)
         print "Tree's Fitness: %f " %(tree.fitness)
+
+#Prints the equation
+def printEquation(tree):
+	path = []
+	recombination.loadPaths(tree.root, path)
+	equation = fitness.createEquation(path)
+	print equation
 
 #Creates a list of levels of a tree
 def createLeveledTree(root):
@@ -90,15 +99,18 @@ def testMutation():
 
 #Testing Crossover
 def testCrossover():
-        depth = 4
+        depth = 5
         apple_tree_1 = initialize.initializeGeneticTree(depth)
         apple_tree_2 = initialize.initializeGeneticTree(depth)
         print "Tree 1"
         printTree(apple_tree_1.root)
+	printEquation(apple_tree_1.root)
         print "Tree 2"
         printTree(apple_tree_2.root)
+	printEquation(apple_tree_2.root)
         crossover(apple_tree_1.root, apple_tree_2.root)
         print "After Crossover"
-        printTree(apple_tree_1.root)
-        printTree(apple_tree_2.root)
-	print equation_dict.values()
+	printTree(qpple_tree_1.root)
+        printEquation(apple_tree_1.root)
+	printTree(apple_tree_2.root)
+        printEquation(apple_tree_2.root)

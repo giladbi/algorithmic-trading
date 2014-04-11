@@ -1,7 +1,12 @@
 #Rahul Ramakrishnan
 #module: initialize
 
-from apple import scrape 
+from tree import Node
+from tree import Tree
+import scrape 
+
+from random import choice
+from random import sample
 
 '''
 	Initialization 
@@ -11,7 +16,7 @@ from apple import scrape
 def initializePopulation(number_of_trees):
 	population = []
 	for i in xrange(0, number_of_trees):
-		tree = initializeGeneticTree(4)
+		tree = initializeGeneticTree()
 		population.append(tree)
 	return population
 

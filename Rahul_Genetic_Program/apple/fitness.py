@@ -7,7 +7,7 @@
 '''
 
 import scrape
-
+import recombination
 
 def calculateAverageFitness(population):
 	size = len(population)
@@ -42,7 +42,7 @@ def fitnessValue(tree):
         path = []    
         fitness = 0 
 	_sum_of_errors = 0
-        loadPaths(tree.root, path)
+        recombination.loadPaths(tree.root, path)
 
 	#Load market data	
 	apple_data = scrape.getAppleData()	
