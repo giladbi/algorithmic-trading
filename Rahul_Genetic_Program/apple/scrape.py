@@ -11,14 +11,14 @@ import random
 
 #Could use a generator, yield
 def getTerminal():
-	'''
+	
 	terminals = ['apple_open', 'apple_high', 'apple_low', 
 		     'apple_close', 'apple_volume', 'nasdaq_open', 
 		     'nasdaq_high', 'nasdaq_low', 'nasdaq_close', 
                      'nasdaq_volume']
-	'''
+
 	#For test data
-	terminals = ['apple_open', 'apple_high', 'apple_low', 'apple_volume', 'apple_close']
+	#terminals = ['apple_open', 'apple_high', 'apple_low', 'apple_volume', 'apple_close']
 	#Add 10 random coefficients into terminal list
 	#to be used when applying operators on signals
 	for i in range(0,10):

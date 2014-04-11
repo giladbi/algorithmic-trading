@@ -3,7 +3,7 @@
 
 '''
         Tree Inspection 
-		& 
+	      &
 	Testing Operators
 '''
 
@@ -20,6 +20,7 @@ def printTreePopulation(population):
 
 #Prints Trees by their Equation (in-order)
 def printEquationPopulation(population):
+	size = len(population)
 	equation_dict = {}
 	print "Size of population in print Equation Population: %d" %(len(population))
         for i,tree in enumerate(population):
@@ -33,7 +34,13 @@ def printEquationPopulation(population):
 	for i, e_and_f in enumerate(sorted_equation):
 		print "%d: %s ===Fitness: %s" %(i,e_and_f[0], e_and_f[1])
 	
-			
+	#To compare against average fitness
+	population_fitness = map(lambda x: x.fitness, population)
+	_sum = reduce(lambda x,y: x+y, population_fitness)
+	avg_fitness = _sum/size
+	print "First Calculated Fitness: %f" %(avg_fitness)
+	
+					
 #Depth of a tree
 def depth(root):
         if(root == None):
@@ -106,14 +113,14 @@ def testCrossover():
         apple_tree_2 = initialize.initializeGeneticTree(depth)
         print "Tree 1"
         #printTree(apple_tree_1.root)
-	printEquation(apple_tree_1.root)
+	printEquation(apple_tree_1)
         print "Tree 2"
         #printTree(apple_tree_2.root)
-	printEquation(apple_tree_2.root)
+	printEquation(apple_tree_2)
 
-        crossover(apple_tree_1.root, apple_tree_2.root)
+        recombination.crossover(apple_tree_1.root, apple_tree_2.root)
         print "After Crossover"
-	#printTree(qpple_tree_1.root)
-        printEquation(apple_tree_1.root)
-	#printTree(apple_tree_2.root)
-        printEquation(apple_tree_2.root)
+	#printTree(qpple_tree_1)
+        printEquation(apple_tree_1)
+	#printTree(apple_tree_2)
+        printEquation(apple_tree_2)

@@ -16,7 +16,7 @@ from random import sample
 def initializePopulation(number_of_trees):
 	population = []
 	for i in xrange(0, number_of_trees):
-		tree = initializeGeneticTree()
+		tree = initializeGeneticTree(5)
 		population.append(tree)
 	return population
 

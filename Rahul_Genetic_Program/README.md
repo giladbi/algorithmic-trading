@@ -45,3 +45,12 @@ $ python predict.py
 Populations will be outputted to the screen
 
 
+**TO DO:**
+- Add more signals (S&P, apple tweets, etc.)
+- Fix early convergence from crossover
+- Refactor all for loops into map/reduce/filter/scan
+- Add colors to output
+- Add graphs of average generational error and average bloat
+- Add best tree output along with average generational error
+
+
