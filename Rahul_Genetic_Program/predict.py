@@ -45,8 +45,3 @@ print "============= After genetic program ===================="
 inspect.printEquationPopulation(population)
 
 
-
-
-
-
-

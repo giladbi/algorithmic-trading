@@ -43,6 +43,8 @@ def depth(root):
 
 #Prints each level
 def printTree(tree):
+	print "tree"
+	print tree
         root = tree.root
         print "-----Tree Level by Level--- Depth of Tree: %d" %(depth(root))
         result = createLeveledTree(root)
@@ -103,14 +105,15 @@ def testCrossover():
         apple_tree_1 = initialize.initializeGeneticTree(depth)
         apple_tree_2 = initialize.initializeGeneticTree(depth)
         print "Tree 1"
-        printTree(apple_tree_1.root)
+        #printTree(apple_tree_1.root)
 	printEquation(apple_tree_1.root)
         print "Tree 2"
-        printTree(apple_tree_2.root)
+        #printTree(apple_tree_2.root)
 	printEquation(apple_tree_2.root)
+
         crossover(apple_tree_1.root, apple_tree_2.root)
         print "After Crossover"
-	printTree(qpple_tree_1.root)
+	#printTree(qpple_tree_1.root)
         printEquation(apple_tree_1.root)
-	printTree(apple_tree_2.root)
+	#printTree(apple_tree_2.root)
         printEquation(apple_tree_2.root)
