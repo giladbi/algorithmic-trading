@@ -5,6 +5,7 @@
 	Mutation & Crossover
 	Functions and Wrappers 
 '''
+import config
 from random import choice
 from random import random
 from copy import deepcopy
@@ -12,11 +13,10 @@ from copy import deepcopy
 '''
 	Mutation
 '''
-def performMutation(population):
-	m_probability = 1.0 
+def performMutation(population):	
 	for tree in xrange(0, len(population)):
 		dice_roll = random()
-		if (dice_roll < m_probability):
+		if (dice_roll < config.m_probability):
 			mutate(population[tree].root)	
 
 def mutate(root):
@@ -51,11 +51,10 @@ def mutate(root):
 	Crossover
 '''
 def performCrossover(population):
-	c_probability = .2 
 	size = len(population)
 	#print "Inside performCrossover, size: %d " %(size)
 	for i in xrange(0, size, 2):
-		if(random() < c_probability):
+		if(random() <= config.c_probability):
 			crossover(population[i].root, population[i+1].root)		
 
 def crossover(root_1, root_2):
