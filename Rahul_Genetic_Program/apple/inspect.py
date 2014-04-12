@@ -22,7 +22,8 @@ def printEquationPopulation(population):
 	size = len(population)
 	equation_dict = {}
 	print "Size of population in print Equation Population: %d" %(len(population))
-        for i,tree in enumerate(population):
+	
+        for tree in population:
                 path = []
                 recombination.loadPaths(tree.root, path)
                 equation = fitness.createEquation(path)
@@ -35,10 +36,9 @@ def printEquationPopulation(population):
 	
 	#To compare against average fitness
 	population_fitness = map(lambda x: x.fitness, population)
-	_sum = reduce(lambda x,y: x+y, population_fitness)
-	avg_fitness = _sum/size
+	avg_fitness = sum(population_fitness)/float(size)
 	print "First Calculated Fitness: %f" %(avg_fitness)
-	
+
 					
 #Depth of a tree
 def depth(root):
