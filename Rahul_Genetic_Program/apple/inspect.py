@@ -96,7 +96,7 @@ def inOrderTraversal(root):
 #Testing Mutation
 def testMutation():
         depth = 4
-        apple_tree_1 = initialize.initializeGeneticTree(depth)
+        apple_tree_1 = initialize.initGeneticTree(depth)
         print "Before Mutation"
         printTree(apple_tree_1.root)
         mutate(apple_tree_1.root)
@@ -106,8 +106,8 @@ def testMutation():
 #Testing Crossover
 def testCrossover():
         depth = 5
-        apple_tree_1 = initialize.initializeGeneticTree(depth)
-        apple_tree_2 = initialize.initializeGeneticTree(depth)
+        apple_tree_1 = initialize.initGeneticTree(depth)
+        apple_tree_2 = initialize.initGeneticTree(depth)
         print "Tree 1"
         #printTree(apple_tree_1.root)
 	printEquation(apple_tree_1)
