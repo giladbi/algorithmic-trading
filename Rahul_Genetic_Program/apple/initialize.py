@@ -13,20 +13,16 @@ from random import sample
 	Functions and Wrappers
 '''
 #Initialize genetic tree population
-def initializePopulation(number_of_trees):
-	population = []
-	for i in xrange(0, number_of_trees):
-		tree = initializeGeneticTree(5)
-		population.append(tree)
+def initPopulation(num_of_trees):
+	population = map(lambda tree: initGeneticTree(5), range(0, num_of_trees))
 	return population
 
 #Initializes a genetic tree with 
 #the specified number of nodes
-def initializeGeneticTree(number_of_nodes):	
+def initGeneticTree(num_of_nodes):	
 	tree = Tree()
 	decision = ['left', 'right']
-	for i in range(0,number_of_nodes):
-		createRandomNodes(tree.root, decision)
+	map(lambda x: createRandomNodes(tree.root, decision), range(0, num_of_nodes))	
 	fillGeneticTree(tree.root)
 	return tree 
 
@@ -53,21 +49,19 @@ def fillGeneticTree(root):
 	#Load terminal list with terminal nodes
 	terminal = scrape.getTerminal()
 	#Load functional list with functional nodes
-	functional = scrape.getFunctional()	
-	
+	functional = scrape.getFunctional()		
 	#Keeps track of functional and terminal
 	#list positions
 	terminal_index = 0
 	functional_index = 0
-
 	stack = []
 	stack.append(root)
-
 	temp_terminal = sample(terminal, len(terminal))      #shuffle terminal
 	temp_functional = sample(functional,len(functional)) #shuffle functional
 
 	#While loop ensures that initial population
-	#are filled with atleast one of each type of functional node
+	#are filled with atleast 
+	#one of each type of functional node
 	#and one of each type of terminal node	
 	while(len(stack) > 0):		
 		current = stack.pop()	
@@ -93,4 +87,3 @@ def fillGeneticTree(root):
 		temp_node = current.left
 		if temp_node != None:
 			stack.append(temp_node) #stack.push
-
