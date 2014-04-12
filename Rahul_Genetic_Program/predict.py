@@ -28,12 +28,12 @@ from apple import selection
 from apple import fitness
 
 #Initialize objects and literals
-population = initialize.initializePopulation(config.population_size)
+population = initialize.initPopulation(config.population_size)
 size = len(population)
 fitness.generateFitnesses(population)
-inspect.printTreePopulation(population)
+inspect.printEquationPopulation(population)
 
-'''
+
 for generation in xrange(0, config.generations):		
 	print "----------Generation: %d----------" %(generation)
 	for tree in xrange(0, size):			
@@ -46,5 +46,5 @@ for generation in xrange(0, config.generations):
 
 print "============= After genetic program ===================="
 inspect.printEquationPopulation(population)
-'''
+
 
