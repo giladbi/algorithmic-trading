@@ -8,6 +8,7 @@
 
 import scrape
 import recombination
+from copy import deepcopy
 
 def calculateAverageFitness(population):	
 	population_fitness = map(lambda t: t.fitness, population)
@@ -22,11 +23,7 @@ def generateFitnesses(population):
 def nodeReplace(path):
 	terminals = scrape.getTerminal()	
 	string_terminals = filter(lambda t: type(t) == type('str'), terminals)
-	path_string_terminals = filter(lambda t: t in path, string_terminals)		
-	
-	#Convert this to filter, map combo later
-
-	
+	path_string_terminals = filter(lambda t: t in path, string_terminals)			
 	apple_data = filter(lambda t: t[0] == 'a', path_string_terminals)
 	nasdaq_data = filter(lambda t: t[0] == 'n', path_string_terminals)
 	map(lambda t: replaceWrapper(path, t, 'a'), apple_data)
@@ -54,24 +51,18 @@ def fitnessValue(tree):
 	#Load market data and stores in respective dictionaries	
 	apple_data = scrape.getAppleData()	
 	nasdaq_data = scrape.getNasdaqData()
-	
-	#Refactor this to filter->map->enumerate	
-	for i in xrange(0, len(apple_data)-1):	
-		nodeReplace(path)
-		equation = createEquation(path)	
-		predicted_price = eval(equation)
-		actual_price = apple_data[i+1]['apple_close']
-		error = abs(actual_price - predicted_price)
-		_sum_of_errors += error	
-
-	total = float(len(apple_data)-1)	
-	fitness = _sum_of_errors/total
+	predicted_price = map(lambda data: data['apple_close'], apple_data)
+	next_day_price = deepcopy(predicted_price)
+	predicted_price.pop() 	#Removes the last item in the list
+	next_day_price.pop(0) 	#Removes the first item in the list		
+	zipped = zip(predicted_price, next_day_price)
+	errors = map(lambda pair: abs(pair[1] - pair[0]), zipped)
+	fitness = sum(errors)/float(len(errors))
 	tree.fitness = fitness	#Adds fitness to tree object in-place	
 	return fitness #For printEquationPopulation function
 		
 def createEquation(path):
-	path_str = ""
-	for node in path:
-		path_str += str(node) + " "
-	return path_str
+	paths = map(lambda node: str(node), path)
+	final_path = reduce(lambda x,y: x + " " + y, paths)	
+	return final_path
 
