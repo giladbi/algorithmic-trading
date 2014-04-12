@@ -24,5 +24,5 @@ class Tree(object):
 		self.root = Node('root') 
 		self.size = 1
 		self.decision = ['left', 'right']
-		self.fitness = None 
+		self.fitness = None
 
