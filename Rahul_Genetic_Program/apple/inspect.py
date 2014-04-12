@@ -15,8 +15,7 @@ from operator import itemgetter
 
 #Prints Trees Level by Level
 def printTreePopulation(population):
-        for tree in population:
-                printTree(tree)
+	map(lambda tree: printTree(tree), population)
 
 #Prints Trees by their Equation (in-order)
 def printEquationPopulation(population):
@@ -49,9 +48,7 @@ def depth(root):
                 return 1 + max(depth(root.left), depth(root.right))
 
 #Prints each level
-def printTree(tree):
-	print "tree"
-	print tree
+def printTree(tree):	
         root = tree.root
         print "-----Tree Level by Level--- Depth of Tree: %d" %(depth(root))
         result = createLeveledTree(root)
