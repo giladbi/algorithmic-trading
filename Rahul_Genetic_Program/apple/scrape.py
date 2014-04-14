@@ -17,8 +17,6 @@ def getTerminal():
 		     'nasdaq_high', 'nasdaq_low', 'nasdaq_close', 
                      'nasdaq_volume']
 
-	#For test data
-	#terminals = ['apple_open', 'apple_high', 'apple_low', 'apple_volume', 'apple_close']
 	#Add 10 random coefficients into terminal list
 	#to be used when applying operators on signals
 	for i in range(0,10):
@@ -40,7 +38,7 @@ def getFunctional():
 
 def getNasdaqData():
 	#Open file reading stream
-	nasdaq = open('/Users/rahulramakrishnan/Projects/algorithmic-trading/Rahul_Genetic_Program/data/nasdaq.txt', 'r')
+	nasdaq = open('/Users/rahulramakrishnan/OneDrive/Projects/algorithmic-trading/Rahul_Genetic_Program/data/nasdaq.txt', 'r')
 	#Training dates
 	begin_date = datetime.date(2011, 01, 01)	
 	end_date = datetime.date(2013, 12, 31)
@@ -71,7 +69,7 @@ def getNasdaqData():
 
 def getAppleData():
 	#Same thing for nasdaq data as apple
-	apple = open('/Users/rahulramakrishnan/Projects/algorithmic-trading/Rahul_Genetic_Program/data/test_data/test_apple_stock.txt', 'r')
+	apple = open('/Users/rahulramakrishnan/OneDrive/Projects/algorithmic-trading/Rahul_Genetic_Program/data/test_data/test_apple_stock.txt', 'r')
 	begin_date = datetime.date(2011, 01, 01)
 	end_date = datetime.date(2013, 12, 31)
 	apple_data = []
