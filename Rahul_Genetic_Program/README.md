@@ -22,6 +22,27 @@ Install python 2.7 interpretter
 sudo apt-get install python2.7
 ```
 
+Install pip (pip installs python)
+
+'''
+http://pip.readthedocs.org/en/latest/installing.html
+'''
+
+On Linux:
+'''
+sudo apt-get install python-pip
+'''
+
+
+Install colors
+
+'''
+sudo pip install termcolor
+'''
+
+
+
+
 *Step 2:*
 Ensure that Rahul_Genetic_Program/ contains
 - a. predict.py
@@ -46,10 +67,10 @@ Populations will be outputted to the screen
 
 
 **TO DO:**
-- Add more signals (S&P, apple tweets, etc.)
-- Fix early convergence from crossover
-- Refactor all for loops into map/reduce/filter/scan
-- Add colors to output
+- Add more signals (S&P, apple tweets, etc.) 
+- Fix early convergence from crossover ---------------------------DONE
+- Refactor all for loops into map/reduce/filter/scan -------------PROGRESS
+- Add colors to output -------------------------------------------DONE
 - Add graphs of average generational error and average bloat
 - Add best tree output along with average generational error
 
