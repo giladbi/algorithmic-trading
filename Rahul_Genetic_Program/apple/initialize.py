@@ -1,6 +1,7 @@
 #Rahul Ramakrishnan
 #module: initialize
 
+import config
 from tree import Node
 from tree import Tree
 import scrape 
@@ -15,9 +16,10 @@ from copy import deepcopy
 '''
 #Initialize genetic tree population
 def initPopulation(num_of_trees):
+	tree_size = config.tree_size	
 	#tree = initGeneticTree(6)
-	#population = map(lambda i: sameTree(tree), range(0, num_of_trees))	
-	population = map(lambda tree: initGeneticTree(5), range(0, num_of_trees))
+	#population = map(lambda i: sameTree(tree), range(0, num_of_trees))		
+	population = map(lambda tree: initGeneticTree(tree_size), range(0, num_of_trees))
 	return population
 
 def sameTree(tree):
