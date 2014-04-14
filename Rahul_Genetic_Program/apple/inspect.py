@@ -12,6 +12,8 @@ import fitness
 import initialize
 
 from operator import itemgetter
+from termcolor import colored
+
 
 #Prints Trees Level by Level
 def printTreePopulation(population):
@@ -21,23 +23,29 @@ def printTreePopulation(population):
 def printEquationPopulation(population):
 	size = len(population)
 	equation_dict = {}
-	print "Size of population in print Equation Population: %d" %(len(population))
+	print (colored("Size of population: %d", 'blue') %(len(population)))
 	
         for tree in population:
-                path = []
+		path = []
                 recombination.loadPaths(tree.root, path)
                 equation = fitness.createEquation(path)
                 error = fitness.fitnessValue(tree)
-		equation_dict[equation] = error
+		if equation not in set(equation_dict.keys()):
+			equation_dict[equation] = {}
+			equation_dict[equation][error] = 1
+		else:
+			equation_dict[equation][error] += 1
+			
 	#Sort based on value of dictionary
 	sorted_equation = sorted(equation_dict.iteritems(), key=itemgetter(1))
-	for i, e_and_f in enumerate(sorted_equation):
-		print "%d: %s ===Fitness: %s" %(i,e_and_f[0], e_and_f[1])
+	for i, error_and_fitness in enumerate(sorted_equation):
+		for j in range(0, error_and_fitness[1].values()[0]):
+			print (colored("%d: %s ===Fitness: %s", 'green') %( (i+j) ,error_and_fitness[0], error_and_fitness[1].keys()[0]))
 	
 	#To compare against average fitness
 	population_fitness = map(lambda x: x.fitness, population)
 	avg_fitness = sum(population_fitness)/float(size)
-	print "First Calculated Fitness: %f" %(avg_fitness)
+	print (colored("Average Fitness: %f", 'red') %(avg_fitness))
 
 					
 #Depth of a tree
