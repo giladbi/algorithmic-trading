@@ -7,6 +7,7 @@ import scrape
 
 from random import choice
 from random import sample
+from copy import deepcopy
 
 '''
 	Initialization 
@@ -14,8 +15,13 @@ from random import sample
 '''
 #Initialize genetic tree population
 def initPopulation(num_of_trees):
+	#tree = initGeneticTree(6)
+	#population = map(lambda i: sameTree(tree), range(0, num_of_trees))	
 	population = map(lambda tree: initGeneticTree(5), range(0, num_of_trees))
 	return population
+
+def sameTree(tree):
+	return deepcopy(tree)	
 
 #Initializes a genetic tree with 
 #the specified number of nodes
@@ -50,8 +56,7 @@ def fillGeneticTree(root):
 	terminal = scrape.getTerminal()
 	#Load functional list with functional nodes
 	functional = scrape.getFunctional()		
-	#Keeps track of functional and terminal
-	#list positions
+	#Keeps track of functional and terminal list positions	
 	terminal_index = 0
 	functional_index = 0
 	stack = []
@@ -59,8 +64,7 @@ def fillGeneticTree(root):
 	temp_terminal = sample(terminal, len(terminal))      #shuffle terminal
 	temp_functional = sample(functional,len(functional)) #shuffle functional
 
-	#While loop ensures that initial population
-	#are filled with atleast 
+	#While loop ensures that initial population has
 	#one of each type of functional node
 	#and one of each type of terminal node	
 	while(len(stack) > 0):		
