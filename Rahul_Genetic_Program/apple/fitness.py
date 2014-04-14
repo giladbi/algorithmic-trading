@@ -10,14 +10,21 @@ import scrape
 import recombination
 from copy import deepcopy
 
+'''
+This doesn't work for some reason its being passed a different object
 def calculateAverageFitness(population):	
+	size = float(len(population))
 	population_fitness = map(lambda t: t.fitness, population)
-	avg_fitness = sum(population_fitness)/float(len(population))
+	print "population_fitness"
+	print population_fitness.sort()
+	avg_fitness = sum(population_fitness)/size
 	print "Average Fitness: %f" %(avg_fitness)
-	
+'''	
 def generateFitnesses(population):		
-	map(lambda x: fitnessValue(x), population)	
-		
+	fitnesses = map(lambda x: fitnessValue(x), population)	
+	#print "fitnesses"	
+	#print fitnesses
+
 #Calculate the fitness value of a single GP tree
 #and stores it in the tree object
 def fitnessValue(tree):
