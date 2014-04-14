@@ -21,8 +21,8 @@ def performMutation(population):
 
 def mutate(root):
 	#Choose to swap terminal or functional nodes
-	node_type = choice(['t', 'f'])
-	if(node_type == 't'): #(terminal node)
+	node_type = choice(['terminal', 'functional'])
+	if(node_type == 'terminal'): 
 		t_node_values = findRandomNodes(root,1)
 		v_1 = choice(t_node_values)
 		#remove from pool
@@ -33,7 +33,7 @@ def mutate(root):
 		node_2 = DFS(root, v_2)
 		#print "Mutation: swapping %s with %s" %(node_1.value, node_2.value)
 		swapValues(node_1, node_2)
-	else: #type == 'f' (functional node)
+	else: #type == 'functional'
 		f_node_values = findRandomNodes(root,2)
 		#Safeguards against a one element f_node
 		if (len(f_node_values) > 1):
@@ -60,19 +60,13 @@ def performCrossover(population):
 def crossover(root_1, root_2):
 
         #Find random functional node value in tree 1
-        f_1_nodes = findRandomNodes(root_1,3)
-	#f_1_node_values = map(lambda x: x.value, f_1_nodes)
+        f_1_nodes = findRandomNodes(root_1,3)	
         node_1 = choice(f_1_nodes)
         f_2_nodes = findRandomNodes(root_2,3)
-	#f_2_node_values = map(lambda x: x.value, f_2_nodes)
         node_2 = choice(f_2_nodes)
-        #Retrieve node references               
-        #n_1 = DFS(root_1, v_1)
-        #n_2 = DFS(root_2, v_2)
-
         #Swap subtrees
         swapValues(node_1, node_2)
-	#print "Crossover: Swapping %s with %s" %(n_1.value, n_2.value)
+	#print "Crossover: Swapping %s with %s" %(node_1.value, node_2.value)
         swapNodes(node_1, node_2)
 
 
