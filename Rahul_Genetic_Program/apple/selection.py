@@ -44,33 +44,27 @@ def roulletteParentSelection(roulletteWheel, population):
 			if (number <= roulletteWheel[j]):
 				new_tree = deepcopy(sorted_population[j])
 				new_population.append(new_tree)	
-				break #break out of inner for loop
+				break 	#break out of inner for loop
 	population = deepcopy(new_population)	
-
-
 
 '''
 	Tournament Selection
 '''
 def tournamentParentSelection(population):
-	temp_population = deepcopy(population)	
+	temp_population = deepcopy(population)		
 	population_size = len(population)
-	#k = population_size/5
-	k = population_size
-	new_tree = None
+	k = 2
 	population[:] = []
 	for p in xrange(0, population_size):
-		tournament = sample(temp_population, k)
-		tree = bestMatch(tournament)			
+		tournament = sample(temp_population, k)		
+		tree = bestMatch(tournament)
 		new_tree = deepcopy(tree)
-		#new_tree = deepcopy(tree)
-		#print "fitness of tree appended: %f" %(fitnessValue(tree))		
-		population.append(new_tree)	
-	#population = deepcopy(new_population)	
+		population.append(new_tree)		
 	
 def bestMatch(tournament):
 	fitnesses = map(lambda x: x.fitness, tournament)
-	best_index = fitnesses.index(min(fitnesses))
+	best_fitness = min(fitnesses)
+	best_index = fitnesses.index(best_fitness)
 	best_tree = tournament[best_index]
 	return best_tree
 
