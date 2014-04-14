@@ -22,23 +22,22 @@ Install python 2.7 interpretter
 sudo apt-get install python2.7
 ```
 
-Install pip (pip installs python)
+Install pip (pip installs python):
 
-'''
 http://pip.readthedocs.org/en/latest/installing.html
-'''
+
 
 On Linux:
-'''
+```
 sudo apt-get install python-pip
-'''
+```
 
 
 Install colors
 
-'''
+```
 sudo pip install termcolor
-'''
+```
 
 
 
