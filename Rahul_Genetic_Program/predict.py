@@ -27,24 +27,25 @@ from apple import recombination
 from apple import selection
 from apple import fitness
 
+from termcolor import colored
+
+
 #Initialize objects and literals
 population = initialize.initPopulation(config.population_size)
-size = len(population)
 fitness.generateFitnesses(population)
+
+print colored("---------INITIAL POPULATION----------", 'magenta')
 inspect.printEquationPopulation(population)
 
-
 for generation in xrange(0, config.generations):		
-	print "----------Generation: %d----------" %(generation)
-	for tree in xrange(0, size):			
+	print (colored("----------Generation: %d----------", 'magenta') %(generation))
+	
+	for tree in xrange(0, len(population)):			
 		recombination.performMutation(population)
 		recombination.performCrossover(population)
 	fitness.generateFitnesses(population)
 	inspect.printEquationPopulation(population)	
 	selection.tournamentParentSelection(population)
-	fitness.calculateAverageFitness(population)	
 
-print "============= After genetic program ===================="
-inspect.printEquationPopulation(population)
 
 
