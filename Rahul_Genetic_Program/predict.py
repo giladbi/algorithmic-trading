@@ -6,18 +6,18 @@
         1. Add more diversity preserving (Test each one)
                 a. Roullette Wheel ---------------------------------------------------------DONE
                 b. Tournament Selection ----------------------------------------------------DONE
-		c. SUS 
         2. Graph the evolution of the different methods
         3. Add more terminal nodes (data from s&p500)
-        4. Add more functional nodes (^, cosine, sine, tangent, log, ln, exp (e^) )
-        5. Convert for loops to map & reduce
-        6. Use filter & scan when you can 
+        4. Add more functional nodes (^, cosine, sine, tangent, log, ln, exp (e^))
+        5. Convert for loops to map & reduce -----------------------------------------------DONE
+        6. Use filter & scan when you can --------------------------------------------------DONE
         7. Become more memory efficient where possible 
 	8. Create training data ------------------------------------------------------------DONE
 	9. Separate modules in a package __init__.py ---------------------------------------DONE
 	10. Include parameter control
-	11. Include colors in the output
+	11. Include colors in the output ---------------------------------------------------DONE
 	12. Find out a way to choose functional nodes randomly -----------------------------DONE
+	13. Ensure that the size of the trees is between A and B ---------------------------DONE
 '''
 
 from apple import config
@@ -34,11 +34,11 @@ from termcolor import colored
 population = initialize.initPopulation(config.population_size)
 fitness.generateFitnesses(population)
 
-print colored("---------INITIAL POPULATION----------", 'magenta')
+print colored("\n---------INITIAL POPULATION----------", 'magenta')
 inspect.printEquationPopulation(population)
 
 for generation in xrange(0, config.generations):		
-	print (colored("----------Generation: %d----------", 'magenta') %(generation))
+	print (colored("\n----------Generation: %d----------", 'magenta') %(generation))
 	
 	for tree in xrange(0, len(population)):			
 		recombination.performMutation(population)
@@ -46,6 +46,5 @@ for generation in xrange(0, config.generations):
 	fitness.generateFitnesses(population)
 	inspect.printEquationPopulation(population)	
 	selection.tournamentParentSelection(population)
-
 
 
