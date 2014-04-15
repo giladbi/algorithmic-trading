@@ -11,7 +11,6 @@ import recombination
 import fitness
 import initialize
 
-from operator import itemgetter
 from termcolor import colored
 
 
@@ -37,7 +36,7 @@ def printEquationPopulation(population):
 			equation_dict[equation][error] += 1
 			
 	#Sort based on value of dictionary
-	sorted_equation = sorted(equation_dict.iteritems(), key=itemgetter(1))
+	sorted_equation = sorted(equation_dict.iteritems(), key=lambda x: x[1])
 	for i, error_and_fitness in enumerate(sorted_equation):
 		for j in range(0, error_and_fitness[1].values()[0]):
 			print (colored("%d: %s ===Fitness: %s", 'green') %( (i+j) ,error_and_fitness[0], error_and_fitness[1].keys()[0]))
