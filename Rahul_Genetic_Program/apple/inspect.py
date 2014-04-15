@@ -44,8 +44,9 @@ def printEquationPopulation(population):
 	
 	#To compare against average fitness
 	population_fitness = map(lambda x: x.fitness, population)
+	best_fitness = min(population_fitness)
 	avg_fitness = sum(population_fitness)/float(size)
-	print (colored("Average Fitness: %f", 'red') %(avg_fitness))
+	print (colored("Average Fitness: %f ----- Best Fitness:%f", 'red') %(avg_fitness, best_fitness))
 
 					
 #Depth of a tree
