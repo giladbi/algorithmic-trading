@@ -19,7 +19,7 @@ def printTreePopulation(population):
 	map(lambda tree: printTree(tree), population)
 
 #Prints Trees by their Equation (in-order)
-def printEquationPopulation(population):
+def printEquationPopulation(population, generation):
 	size = len(population)
 	equation_dict = {}
 	#print (colored("Size of population: %d", 'blue') %(len(population)))
@@ -34,20 +34,28 @@ def printEquationPopulation(population):
 			equation_dict[equation][error] = 1
 		else:
 			equation_dict[equation][error] += 1
-			
+		
+	#Output Generation Number
+	first_part = colored("\nGENERATION: %d ", 'magenta') %(generation)
+	boundary = "=" * 100
+	second_part = colored(boundary, 'magenta')
+	print first_part + second_part
+	
 	#Sort based on value of dictionary
 	sorted_equation = sorted(equation_dict.iteritems(), key=lambda x: x[1])
 	for i, equation_and_error in enumerate(sorted_equation):
 		for j in range(0, equation_and_error[1].values()[0]):
 			equation = (colored("%s", 'green') %(equation_and_error[0]))
-			error = (colored("Fitness: %s", 'red') %(equation_and_error[1].keys()[0]))
+			error = (colored("Fitness: %s", 'blue') %(equation_and_error[1].keys()[0]))
 			print equation + " === " + error
 	
 	#To compare against average fitness
 	population_fitness = map(lambda x: x.fitness, population)
 	best_fitness = min(population_fitness)
 	avg_fitness = sum(population_fitness)/float(size)
-	print (colored("Average Fitness: %f ----- Best Fitness:%f", 'red') %(avg_fitness, best_fitness))
+	output_avg_fitness = colored("Mean Fitness: %f", 'yellow') %(avg_fitness)	
+	output_best_fitness = colored("Best Fitness: %f", 'red') %(best_fitness)
+	print output_avg_fitness + "\n" + output_best_fitness
 
 					
 #Depth of a tree
@@ -119,15 +127,13 @@ def testCrossover():
         apple_tree_1 = initialize.initGeneticTree(depth)
         apple_tree_2 = initialize.initGeneticTree(depth)
         print "Tree 1"
-        #printTree(apple_tree_1.root)
-	printEquation(apple_tree_1)
+        printTree(apple_tree_1.root)
         print "Tree 2"
-        #printTree(apple_tree_2.root)
-	printEquation(apple_tree_2)
-
+        printTree(apple_tree_2.root)
         recombination.crossover(apple_tree_1.root, apple_tree_2.root)
-        print "After Crossover"
-	#printTree(qpple_tree_1)
-        printEquation(apple_tree_1)
-	#printTree(apple_tree_2)
-        printEquation(apple_tree_2)
+        print "\nAfter Crossover"
+	print "Tree 1"
+	printTree(qpple_tree_1)   
+	print "Tree 2"
+	printTree(apple_tree_2)
+       
