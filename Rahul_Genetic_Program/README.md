@@ -41,7 +41,6 @@ sudo pip install termcolor
 
 
 
-
 *Step 2:*
 Ensure that Rahul_Genetic_Program/ contains
 - a. predict.py
@@ -55,6 +54,10 @@ Ensure that Rahul_Genetic_Program/ contains
 	- selection.py
 	- fitness.py
 - c. data/ (contains data)
+
+
+- d. You can change default parameters in the config.py file
+
 
 *Step 3:*
 ```
