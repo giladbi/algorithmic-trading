@@ -22,7 +22,7 @@ def printTreePopulation(population):
 def printEquationPopulation(population):
 	size = len(population)
 	equation_dict = {}
-	print (colored("Size of population: %d", 'blue') %(len(population)))
+	#print (colored("Size of population: %d", 'blue') %(len(population)))
 	
         for tree in population:
 		path = []
