@@ -32,19 +32,14 @@ from termcolor import colored
 
 #Initialize objects and literals
 population = initialize.initPopulation(config.population_size)
-fitness.generateFitnesses(population)
 
-print colored("\n---------INITIAL POPULATION----------", 'magenta')
-inspect.printEquationPopulation(population)
-
-for generation in xrange(0, config.generations):		
-	print (colored("\n----------Generation: %d----------", 'magenta') %(generation))
-	
+for generation in xrange(0, config.generations):			
+	print (colored("\nGENERATION: %d", 'magenta') %(generation))
+	fitness.generateFitnesses(population)
+	inspect.printEquationPopulation(population)	
 	for tree in xrange(0, len(population)):			
 		recombination.performMutation(population)
 		recombination.performCrossover(population)
-	fitness.generateFitnesses(population)
-	inspect.printEquationPopulation(population)	
 	selection.tournamentParentSelection(population)
 
 
