@@ -39,8 +39,6 @@ Install colors
 sudo pip install termcolor
 ```
 
-
-
 *Step 2:*
 Ensure that Rahul_Genetic_Program/ contains
 - a. predict.py
@@ -54,9 +52,8 @@ Ensure that Rahul_Genetic_Program/ contains
 	- selection.py
 	- fitness.py
 - c. data/ (contains data)
-
-
-- d. You can change default parameters in the config.py file
+- d. output/ (statistical data outputted)
+- e. You can change default parameters in the config.py file
 
 
 *Step 3:*
@@ -71,9 +68,8 @@ Populations will be outputted to the screen
 **TO DO:**
 - Add more signals (S&P, apple tweets, etc.) 
 - Fix early convergence from crossover ---------------------------DONE
-- Refactor all for loops into map/reduce/filter/scan -------------PROGRESS
+- Refactor all for loops into map/reduce/filter/scan -------------DONE
 - Add colors to output -------------------------------------------DONE
-- Add graphs of average generational error and average bloat
-- Add best tree output along with average generational error
-
+- Add graphs of mean generational error and best fitness----------PROGRESS
+- Add best tree output along with average generational error -----DONE
 
