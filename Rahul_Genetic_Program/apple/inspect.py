@@ -12,7 +12,7 @@ import fitness
 import initialize
 
 from termcolor import colored
-
+mean_best = open('./output/mean_best.txt', 'w')
 
 #Prints Trees Level by Level
 def printTreePopulation(population):
@@ -48,16 +48,15 @@ def printEquationPopulation(population, generation):
 			equation = (colored("%s", 'green') %(equation_and_error[0]))
 			error = (colored("Fitness: %s", 'blue') %(equation_and_error[1].keys()[0]))
 			print equation + " === " + error
-	
-	#To compare against average fitness
+			
 	population_fitness = map(lambda x: x.fitness, population)
-	best_fitness = min(population_fitness)
-	avg_fitness = sum(population_fitness)/float(size)
-	output_avg_fitness = colored("Mean Fitness: %f", 'yellow') %(avg_fitness)	
+	mean_fitness = sum(population_fitness)/float(size)
+	best_fitness = min(population_fitness)	
+	output_mean_fitness = colored("Mean Fitness: %f", 'yellow') %(mean_fitness)	
 	output_best_fitness = colored("Best Fitness: %f", 'red') %(best_fitness)
-	print output_avg_fitness + "\n" + output_best_fitness
-
-					
+	mean_best.write(str(mean_fitness) +  " " + str(best_fitness))  #Write to file
+	print output_mean_fitness + "\n" + output_best_fitness
+	
 #Depth of a tree
 def depth(root):
         if(root == None):
@@ -126,13 +125,12 @@ def testCrossover():
         depth = 5
         apple_tree_1 = initialize.initGeneticTree(depth)
         apple_tree_2 = initialize.initGeneticTree(depth)
-        print "Tree 1"
+        print "Before Crossover: \nTree 1"
         printTree(apple_tree_1.root)
         print "Tree 2"
         printTree(apple_tree_2.root)
         recombination.crossover(apple_tree_1.root, apple_tree_2.root)
-        print "\nAfter Crossover"
-	print "Tree 1"
+        print "\nAfter Crossover: \n Tree 1"
 	printTree(qpple_tree_1)   
 	print "Tree 2"
 	printTree(apple_tree_2)
