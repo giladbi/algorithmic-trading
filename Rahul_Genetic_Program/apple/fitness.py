@@ -83,3 +83,5 @@ def createEquation(path):
         paths = map(lambda node: str(node), path)
         final_path = reduce(lambda x,y: x + " " + y, paths)
         return final_path
+
+
