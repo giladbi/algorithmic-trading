@@ -69,7 +69,7 @@ def chooseRandomSubTree(root, t_or_f):
 	functional_nodes = getNodes(root, 3)	
 	#Choose from sub-trees that have a depth greater than 2
 	#This prevents pre-mature convergence
-	qualified_nodes = filter(lambda node: depth(node) > 2, functional_nodes)
+	qualified_nodes = filter(lambda node: depth(node) > 3, functional_nodes)
 	node = choice(qualified_nodes)	
 	return node
 	
