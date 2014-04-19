@@ -54,7 +54,7 @@ def printEquationPopulation(population, generation):
 	best_fitness = min(population_fitness)	
 	output_mean_fitness = colored("Mean Fitness: %f", 'yellow') %(mean_fitness)	
 	output_best_fitness = colored("Best Fitness: %f", 'red') %(best_fitness)
-	mean_best.write(str(mean_fitness) +  " " + str(best_fitness))  #Write to file
+	mean_best.write(str(mean_fitness) +  " " + str(best_fitness) + "\n")  #Write to file
 	print output_mean_fitness + "\n" + output_best_fitness
 	
 #Depth of a tree
