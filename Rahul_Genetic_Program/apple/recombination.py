@@ -66,7 +66,7 @@ def crossover(root_1, root_2):
 	Wrappers
 '''
 def chooseRandomSubTree(root, t_or_f):		
-	functional_nodes = getNodes(root_1,3)	
+	functional_nodes = getNodes(root, 3)	
 	#Choose from sub-trees that have a depth greater than 2
 	#This prevents pre-mature convergence
 	qualified_nodes = filter(lambda node: depth(node, count) > 2, functional_nodes)
