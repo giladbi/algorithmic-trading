@@ -58,6 +58,7 @@ def nodeReplace(path):
 
         map(lambda t: replaceWrapper(path, t, 'a'), apple_data)
         map(lambda t: replaceWrapper(path, t, 'n'), nasdaq_data)
+	map(lambda t: replaceWrapper(path, t, 's'), sp500_data)
 
 def replaceWrapper(path, t, data_type):
         pairs = filter(lambda pair: pair[1] == t, enumerate(path))
