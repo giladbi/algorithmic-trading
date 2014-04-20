@@ -12,7 +12,7 @@ import fitness
 import initialize
 
 from termcolor import colored
-mean_best = open('./output/mean_best.txt', 'w')
+mean_best = open('./output/trial_3_test_mean_best.txt', 'w')
 
 #Prints Trees Level by Level
 def printTreePopulation(population):
