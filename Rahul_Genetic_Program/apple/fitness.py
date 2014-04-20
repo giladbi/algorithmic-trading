@@ -22,11 +22,12 @@ def fitnessValue(tree):
 	#Load market data and stores in respective dictionaries	
 	apple_data = scrape.getAppleData()	
 	nasdaq_data = scrape.getNasdaqData()
-
+	sp500_data = scrape.getSP500Data()
+	
 	nodeReplace(path)	
 	equation = createEquation(path)	
 	data_size = range(0, len(apple_data))	
-	predicted_prices = map(lambda i: evaluateEquation(i, nasdaq_data, apple_data, equation), data_size)
+	predicted_prices = map(lambda i: evaluateEquation(i, nasdaq_data, apple_data, sp500_data, equation), data_size)
 	next_day_prices = map(lambda data: data['apple_close'], apple_data) #next_day_price is the actual price
 		
 	predicted_prices.pop() 	#Removes the last item in the list
@@ -39,7 +40,7 @@ def fitnessValue(tree):
 	tree.fitness = fitness	#Adds fitness to tree object in-place	
 	return fitness 		#For printEquationPopulation function	
 
-def evaluateEquation(i, nasdaq_data, apple_data, equation):
+def evaluateEquation(i, nasdaq_data, apple_data, sp500_data, equation):
 	return eval(equation)
 	
 
@@ -47,10 +48,14 @@ def evaluateEquation(i, nasdaq_data, apple_data, equation):
 #dictionary that will be eval'd later
 def nodeReplace(path):
         terminals = scrape.getTerminal()    
+
         string_terminals = filter(lambda t: type(t) == type('str'), terminals)
         path_string_terminals = filter(lambda t: t in path, string_terminals)     
+
         apple_data = filter(lambda t: t[0] == 'a', path_string_terminals)
         nasdaq_data = filter(lambda t: t[0] == 'n', path_string_terminals)
+	sp500_data = filter(lambda t: t[0] == 's', path_string_terminals)
+
         map(lambda t: replaceWrapper(path, t, 'a'), apple_data)
         map(lambda t: replaceWrapper(path, t, 'n'), nasdaq_data)
 
@@ -64,12 +69,12 @@ def replaceWrapper2(path, t, data_type, index):
                 path[index] = "apple_data[i]['%s']" %(t)
         elif(data_type == 'n'):
                 path[index] = "nasdaq_data[i]['%s']" %(t)
-
+	elif(data_type == 's'):
+		path[index] = "sp500_data[i]['%s']" %(t)
 
 #Creates the equation that the tree represents
 def createEquation(path):
         paths = map(lambda node: str(node), path)
         final_path = reduce(lambda x,y: x + " " + y, paths)
         return final_path
-
 
