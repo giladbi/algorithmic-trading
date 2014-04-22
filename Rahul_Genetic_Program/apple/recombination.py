@@ -8,6 +8,7 @@
 import config
 from random import choice
 from random import random
+from random import randint
 from copy import deepcopy
 
 '''
@@ -28,8 +29,7 @@ def mutate(root):
 		t_node_values.remove(v_1)  #remove from pool
 		v_2 = choice(t_node_values)
 		node_1 = DFS(root, v_1) #Retrieve node references
-		node_2 = DFS(root, v_2)
-		#print "Mutation: swapping %s with %s" %(node_1.value, node_2.value)
+		node_2 = DFS(root, v_2)	
 		swapValues(node_1, node_2)
 	else: #type == 'functional'
 		f_node_values = getNodes(root,2)
@@ -48,17 +48,18 @@ def mutate(root):
 '''
 def performCrossover(population):
 	size = len(population)
-	#print "Inside performCrossover, size: %d " %(size)
-	for i in xrange(0, size, 2):
+	for i in xrange(0, size):
 		if(random() <= config.c_probability):
-			crossover(population[i].root, population[i+1].root)		
+			choice_1 = randint(0, size-1)	
+			choice_2 = randint(0, size-1)
+			if(choice_1 != choice_2):
+				crossover(population[choice_1].root, population[choice_2].root)		
 
 
 def crossover(root_1, root_2):
 	node_1 = chooseRandomSubTree(root_1, 3)
 	node_2 = chooseRandomSubTree(root_2, 3)
         swapValues(node_1, node_2) #Swap subtrees
-	#print "Crossover: Swapping %s with %s" %(node_1.value, node_2.value)
         swapNodes(node_1, node_2)
 
 
@@ -69,7 +70,7 @@ def chooseRandomSubTree(root, t_or_f):
 	functional_nodes = getNodes(root, 3)	
 	#Choose from sub-trees that have a depth greater than 2
 	#This prevents pre-mature convergence
-	qualified_nodes = filter(lambda node: depth(node) > 3, functional_nodes)
+	qualified_nodes = filter(lambda node: depth(node) > 2, functional_nodes)
 	node = choice(qualified_nodes)	
 	return node
 	

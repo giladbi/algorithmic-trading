@@ -20,8 +20,8 @@ def getTerminal():
 
 	#Add 10 random coefficients into terminal list
 	#to be used when applying operators on signals
-	for i in range(0,20):
-		random_integer = random.randint(-1000, 1000)
+	for i in range(0,15):
+		random_integer = random.randint(-500, 500)
 		number = random_integer * random.random()
 		#Protect against divide by zero
 		if(number == 0):
@@ -69,7 +69,7 @@ def getNasdaqData():
 
 
 def getAppleData():	
-	apple = open('/Users/rahulramakrishnan/OneDrive/Projects/algorithmic-trading/Rahul_Genetic_Program/data/test_data/test_apple_stock.txt', 'r')
+	apple = open('/Users/rahulramakrishnan/OneDrive/Projects/algorithmic-trading/Rahul_Genetic_Program/data/apple_stock.txt', 'r')
 	begin_date = datetime.date(2011, 01, 01)
 	end_date = datetime.date(2013, 12, 31)
 	apple_data = []

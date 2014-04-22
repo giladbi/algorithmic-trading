@@ -18,6 +18,10 @@ for generation in xrange(0, config.generations):
 	for tree in xrange(0, len(population)):			
 		recombination.performMutation(population)
 		recombination.performCrossover(population)
+	#Tournament Selection
 	selection.tournamentParentSelection(population)
+	#Roullette Wheel
+	#roulletteWheel = selection.createRoulletteWheel(population)
+	#selection.roulletteParentSelection(roulletteWheel, population)
 
 

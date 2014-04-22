@@ -5,7 +5,7 @@
 	Parent Selection
 	Functions
 '''
-
+from config import tournament_size
 from copy import deepcopy
 from random import sample
 from random import random
@@ -31,21 +31,22 @@ def createRoulletteWheel(population):
 			roulletteWheel[0] = probabilities[i] 
 		else:
 			roulletteWheel[i] = roulletteWheel[i-1] + probabilities[i]	
+	#print roulletteWheel
 	return roulletteWheel	
 
 def roulletteParentSelection(roulletteWheel, population):	
 	population_size = len(population)	
 	sorted_population = sortPopulation(population)
-	new_population = []
+	population[:] = []	
 	for i in xrange(0, population_size):	
 		#0.0 <= X <= 1.0
 		number = random()
 		for j in xrange(0, len(roulletteWheel)):
 			if (number <= roulletteWheel[j]):
 				new_tree = deepcopy(sorted_population[j])
-				new_population.append(new_tree)	
+				population.append(new_tree)	
 				break 	#break out of inner for loop
-	population = deepcopy(new_population)	
+	
 
 '''
 	Tournament Selection
@@ -53,7 +54,7 @@ def roulletteParentSelection(roulletteWheel, population):
 def tournamentParentSelection(population):
 	temp_population = deepcopy(population)		
 	population_size = len(population)
-	k = 2
+	k = tournament_size 
 	population[:] = []
 	for p in xrange(0, population_size):
 		tournament = sample(temp_population, k)		
