@@ -12,8 +12,7 @@ import fitness
 import initialize
 
 from termcolor import colored
-mean_best = open('./output/trial_3_test_mean_best.txt', 'w')
-
+mean_best = open('/Users/rahulramakrishnan/Desktop/trial_3_30_real_mean_best.txt', 'w')
 #Prints Trees Level by Level
 def printTreePopulation(population):
 	map(lambda tree: printTree(tree), population)

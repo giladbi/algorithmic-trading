@@ -50,6 +50,7 @@ def performCrossover(population):
 	size = len(population)
 	for i in xrange(0, size):
 		if(random() <= config.c_probability):
+			#crossover(population[i].root, population[i+1].root)
 			choice_1 = randint(0, size-1)	
 			choice_2 = randint(0, size-1)
 			if(choice_1 != choice_2):
@@ -70,7 +71,7 @@ def chooseRandomSubTree(root, t_or_f):
 	functional_nodes = getNodes(root, 3)	
 	#Choose from sub-trees that have a depth greater than 2
 	#This prevents pre-mature convergence
-	qualified_nodes = filter(lambda node: depth(node) > 2, functional_nodes)
+	qualified_nodes = filter(lambda node: depth(node) > config.minimum_size, functional_nodes)
 	node = choice(qualified_nodes)	
 	return node
 	
