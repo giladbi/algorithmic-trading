@@ -1,12 +1,17 @@
 #Generates a Histogram
 #Rahul Ramakrishnan
 
+
 import json
 import os
-first_dir = '/Users/rahulramakrishnan/Desktop/T_S_Trial_1'
-#second_dir = '/Users/rahulramakrishnan/Desktop/T_S_Trial_1'
-#third_dir = '/Users/rahulramakrishnan/Desktop/T_S_Trial_1'
 
+
+#first_dir = '/Users/rahulramakrishnan/Desktop/Trial_1_Dataset'
+#second_dir = '/Users/rahulramakrishnan/Desktop/Trial_2_Dataset'
+#third_dir = '/Users/rahulramakrishnan/Desktop/Trial_3_Dataset'
+#first_dir = '/Users/rahulramakrishnan/OneDrive/Academia/Stochastic Optimization/Algorithmic_Trading_Data/Tournament Selection Data/T_S_Trial_1'
+#second_dir = '/Users/rahulramakrishnan/OneDrive/Academia/Stochastic Optimization/Algorithmic_Trading_Data/Tournament Selection Data/T_S_Trial_2'
+#third_dir = '/Users/rahulramakrishnan/OneDrive/Academia/Stochastic Optimization/Algorithmic_Trading_Data/Tournament Selection Data/T_S_Trial_3'
 
 mean_histogram = { 0 : 0, 
 	      	   100 : 0,
@@ -29,15 +34,15 @@ best_histogram = { 0 : 0,
               	   1000000000 : 0 } 
 
 files = []
-for root, dirs, filenames in os.walk(first_dir):
+for root, dirs, filenames in os.walk(third_dir):
 	for f in filenames:
 		files.append(open(os.path.join(root, f), 'r'))
 
-mean_histogram_file = open('./mean_histo_1.txt', 'w')
-best_histogram_file = open('./best_histo_1.txt', 'w')
+mean_histogram_file = open('./mean_histo_3.txt', 'w')
+best_histogram_file = open('./best_histo_3.txt', 'w')
 
-for f in files:
-	for line in f:
+for i in range(1, len(files)):
+	for line in files[i]:	
 		words = line.split(' ')
 		mean = words[0]
 		best = words[1]	
