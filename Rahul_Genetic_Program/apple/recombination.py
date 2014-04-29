@@ -49,12 +49,13 @@ def mutate(root):
 def performCrossover(population):
 	size = len(population)
 	for i in xrange(0, size):
-		if(random() <= config.c_probability):
-			#crossover(population[i].root, population[i+1].root)
-			choice_1 = randint(0, size-1)	
-			choice_2 = randint(0, size-1)
-			if(choice_1 != choice_2):
-				crossover(population[choice_1].root, population[choice_2].root)		
+		if(random() <= config.c_probability and (i+1) < size):
+			crossover(population[i].root, population[i+1].root)
+			#For random selection
+			#choice_1 = randint(0, size-1)	
+			#choice_2 = randint(0, size-1)
+			#if(choice_1 != choice_2):
+			#	crossover(population[choice_1].root, population[choice_2].root)		
 
 
 def crossover(root_1, root_2):

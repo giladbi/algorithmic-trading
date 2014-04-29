@@ -30,8 +30,7 @@ def createRoulletteWheel(population):
 		if (i == 0):
 			roulletteWheel[0] = probabilities[i] 
 		else:
-			roulletteWheel[i] = roulletteWheel[i-1] + probabilities[i]	
-	#print roulletteWheel
+			roulletteWheel[i] = roulletteWheel[i-1] + probabilities[i]		
 	return roulletteWheel	
 
 def roulletteParentSelection(roulletteWheel, population):	

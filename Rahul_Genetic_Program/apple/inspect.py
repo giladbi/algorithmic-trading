@@ -10,9 +10,10 @@
 import recombination
 import fitness
 import initialize
+import config
 
 from termcolor import colored
-mean_best = open('/Users/rahulramakrishnan/Desktop/trial_3_30_real_mean_best.txt', 'w')
+mean_best = open('/Users/rahulramakrishnan/Desktop/trial_2_' + str(config.iteration) + '_real_mean_best.txt', 'w')
 #Prints Trees Level by Level
 def printTreePopulation(population):
 	map(lambda tree: printTree(tree), population)
