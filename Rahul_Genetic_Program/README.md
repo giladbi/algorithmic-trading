@@ -55,13 +55,20 @@ Ensure that Rahul_Genetic_Program/ contains
 - d. output/ (statistical data outputted)
 - e. You can change default parameters in the config.py file
 
-
 *Step 3:*
+Point apple/scrape.py
+	nasdaq line: 42
+	sp500  line: 72
+	apple  line: 95
+	to the file data path, 
+	on your system
+
+*Step 4:*
 ```
 $ python predict.py
 ```
 
-*Step 4:*
+*Step 5:*
 Populations will be outputted to the screen
 
 

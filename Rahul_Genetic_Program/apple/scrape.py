@@ -39,7 +39,7 @@ def getFunctional():
 
 def getNasdaqData():
 	#Open file reading stream
-	nasdaq = open('/Users/rahulramakrishnan/OneDrive/Projects/algorithmic-trading/Rahul_Genetic_Program/data/nasdaq.txt', 'r')
+	nasdaq = open('/Users/rahulramakrishnan/Projects/algorithmic-trading/Rahul_Genetic_Program/data/nasdaq.txt', 'r')	
 	#Training dates
 	begin_date = datetime.date(2011, 01, 01)	
 	end_date = datetime.date(2013, 12, 31)
@@ -69,7 +69,7 @@ def getNasdaqData():
 
 
 def getAppleData():	
-	apple = open('/Users/rahulramakrishnan/OneDrive/Projects/algorithmic-trading/Rahul_Genetic_Program/data/apple_stock.txt', 'r')
+	apple = open('/Users/rahulramakrishnan/Projects/algorithmic-trading/Rahul_Genetic_Program/data/apple_stock.txt', 'r')
 	begin_date = datetime.date(2011, 01, 01)
 	end_date = datetime.date(2013, 12, 31)
 	apple_data = []
@@ -92,7 +92,7 @@ def getAppleData():
 
 
 def getSP500Data():
-        sp500= open('/Users/rahulramakrishnan/OneDrive/Projects/algorithmic-trading/Rahul_Genetic_Program/data/sp_500.txt', 'r')
+        sp500= open('/Users/rahulramakrishnan/Projects/algorithmic-trading/Rahul_Genetic_Program/data/sp_500.txt', 'r')
         begin_date = datetime.date(2011, 01, 01) 
         end_date = datetime.date(2013, 12, 31) 
         sp500_data = []
